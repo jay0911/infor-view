@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Ion Form</title> 
+    <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet"/>
+    <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+    <script type="text/javascript" src="../../static/js/login.js" th:src="@{/js/login.js}"></script>
+
+</head>
+<body ng-app="myApp" ng-controller="MyController">
+
+    <ion-header-bar class="bar-positive">
+	    <div class="buttons">
+			<a class="button ion-home" href="/homepagepublic">Homepage</a>
+		</div>
+      <h1 class="title">Login Page</h1>
+    </ion-header-bar>
+	<ion-content>
+
+		
+		<form th:action="@{/login}"  th:object="${customer}" method="post" name="simpleionform" novalidation="" >
+
+			<div th:if="${param.error}">
+	            <div class="card">
+				  <div class="item item-divider">
+				    Error List
+				  </div>
+				  <div class="item item-text-wrap">
+				    Invalid username and password.
+				  </div>
+				</div>
+        	</div>
+			<label class="item item-input item-floating-label">
+			    <span class="input-label">UserName</span>
+			    <input type="text" name="name" th:field="*{username}" placeholder="username" ng-model="username" th:required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.username.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-input item-floating-label">
+			   <span class="input-label">Password</span>
+			   <input type="password" name="password" th:field="*{password}" placeholder="password" ng-model="password" th:required="required" />
+			   <i  ng-show="submitted &amp;&amp; simpleionform.password.$error.required" class="icon ion-heart">required</i>		  
+			</label>
+
+	
+			
+			<button type="submit" class="button button-block button-balanced" ng-click="submitted=true">Submit</button>
+			
+		</form>
+	</ion-content>
+	
+</body>
+</html>

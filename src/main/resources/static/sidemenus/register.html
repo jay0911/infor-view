@@ -1,0 +1,61 @@
+      <ion-view view-title="Register here">
+        <ion-content class="padding">
+        <form method="post" name="simpleionform" novalidation="" ng-submit="onsubmit()">
+        	<div class="list">
+        	
+        	<div class="item item-divider">
+			   Basic Information
+			</div>
+        	
+        	<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-android-person"></i>
+			    <input type="text" name="firstname" placeholder="first name" ng-model="name.first" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.firstname.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-android-person"></i>
+			    <input type="text" name="lastname" placeholder="last name" ng-model="name.last" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.lastname.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-android-call"></i>
+			    <input type="text" name="contactnumber" placeholder="contact number" ng-model="customer.contactnumber" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.contactnumber.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-email"></i>
+			    <input type="text" name="emailaddress" placeholder="email address" ng-model="customer.emailaddress" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.emailaddress.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-android-globe"></i>
+			    <input type="text" name="address" placeholder="address" ng-model="customer.address" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.address.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			
+			<ion-radio ng-repeat="item in gender"
+	                   ng-value="item.value"
+	                   ng-model="gendervalue.value">
+	          {{ item.text }}
+	        </ion-radio>
+	        
+	        <div class="item item-divider">
+			   User log-in credentials
+			</div>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-social-instagram-outline"></i>
+			    <input type="text" name="username" placeholder="username" ng-model="customer.username" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.username.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-android-lock"></i>
+			    <input type="password" name="password" placeholder="password" ng-model="customer.password" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.password.$error.required" class="icon ion-heart">required</i>			
+			</label>
+
+			</div>
+			
+			<button type="submit" class="button button-block button-balanced" ng-click="submitted=true">Submit</button>
+		</form>
+        </ion-content>
+      </ion-view>
