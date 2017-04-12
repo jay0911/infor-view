@@ -95,9 +95,6 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	  
 	  $scope.gendervalue = {value:"male"};
 	  
-	  $scope.name = {last:"",first:""};
-	 
-	  
 	  $scope.customer = {
 			  fullname:"",
 			  contactnumber:"",
@@ -119,7 +116,6 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		          showDelay: 0
 		  });
 		  
-		  $scope.customer.fullname = $scope.name.first + " " +$scope.name.last;
 		  $scope.customer.gender = $scope.gendervalue.value;
 		  
 		  
@@ -133,7 +129,6 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			        });
 
 			        alertPopup.then(function(res) {
-	
 			        	$state.go('tabs.loginregister', {}, { location: false } );
 			        });
 			  	  };
@@ -144,8 +139,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 				        });
 
 				        alertPopup.then(function(res) {
-		
-				        	
+				        	//to do
 				        });
 			  	  };
 			  	  
