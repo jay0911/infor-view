@@ -9,8 +9,13 @@
         	
         	<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-android-person"></i>
-			    <input type="text" name="fullname" placeholder="full name" ng-model="customer.fullname" required="required" />		   
-				<i  ng-show="submitted &amp;&amp; simpleionform.fullname.$error.required" class="icon ion-heart">required</i>			
+			    <input type="text" name="firstname" placeholder="first name" ng-model="customer.firstname" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.firstname.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-android-person"></i>
+			    <input type="text" name="lastname" placeholder="last name" ng-model="customer.lastname" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.lastname.$error.required" class="icon ion-heart">required</i>			
 			</label>
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-android-call"></i>
@@ -28,10 +33,20 @@
 				<i  ng-show="submitted &amp;&amp; simpleionform.address.$error.required" class="icon ion-heart">required</i>			
 			</label>
 			
-			<ion-radio ng-repeat="item in gender"
+			<ion-radio name="group2" ng-repeat="item in gender"
 	                   ng-value="item.value"
 	                   ng-model="gendervalue.value">
 	          {{ item.text }}
+	        </ion-radio>
+	        
+	        <div class="item item-divider">
+			   Position
+			</div>
+	        <ion-radio name="group1" ng-repeat="roleitem in roles"
+	                   ng-value="roleitem.role"
+	                   ng-model="roles.value"
+	                   >
+	          {{ roleitem.role }}
 	        </ion-radio>
 	        
 	        <div class="item item-divider">

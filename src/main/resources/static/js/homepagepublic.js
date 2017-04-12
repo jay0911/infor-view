@@ -18,8 +18,8 @@ angular.module('ionicApp', ['ionic','ui.router'])
       url: "/availableslots",
       views: {
         'menuContent': {
-          templateUrl: "sidemenus/shoplist.html",
-          controller: 'shoplistctrl'
+          templateUrl: "sidemenus/register.html",
+          controller: 'registercontroller'
         }
       }
     })
@@ -88,25 +88,48 @@ angular.module('ionicApp', ['ionic','ui.router'])
 
 
 .controller('registercontroller', function($scope,$http,$state,$ionicPopup,$ionicLoading) {
-	  $scope.gender=[
+	
+	var init = function () {
+	    $http({
+		  method: 'GET',
+		  url: '/getroles'
+		}).then(function successCallback(response) {
+		     console.log(response);
+		     for (i=0;i<response.data.length;i++){
+		    	 $scope.roles.push(response.data[i])
+		     }
+		     //$scope.roles = response.data.contactnumber;     
+		}, function errorCallback(response) {
+			 console.log(response);
+		});	
+	   
+	};
+
+	init();
+	
+	
+	$scope.gender=[
        	{text:"Male",value:"male"},
        	{text:"Female",value:"female"}
-      ];
+    ];
 	  
-	  $scope.gendervalue = {value:"male"};
+	$scope.gendervalue = {value:"male"};
 	  
-	  $scope.customer = {
-			  fullname:"",
+	$scope.roles = [];
+	  
+	$scope.customer = {
+			  firstname:"",
+			  lastname:"",
 			  contactnumber:"",
 			  emailaddress:"",
 			  address:"",
 			  gender:"",
 			  username:"",
 			  password:""
-	  };
+	};
 	  	  
 	  
-	  $scope.onsubmit = function (){  
+	$scope.onsubmit = function (){  
 		  $ionicLoading.show({
 		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
 		            '<p>Registering ...</p>',
@@ -148,11 +171,8 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		  }).finally(function() {
 				    // called no matter success or failure
 			  $ionicLoading.hide();
-		  });
-		  
-	  };
-	  
-			  			
+		  });		  
+	};			  			
 })
 
 .controller('backController', function($scope, $ionicHistory,$state) {
