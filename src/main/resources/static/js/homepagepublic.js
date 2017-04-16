@@ -47,48 +47,28 @@ angular.module('ionicApp', ['ionic','ui.router'])
    $urlRouterProvider.otherwise("/tab/home");
 
 })
-
-.controller('shoplistctrl', function($scope) {
-
-	  $scope.data = {
-			    showDelete: false
-			  };
-			  
-			  $scope.edit = function(item) {
-			    alert('Edit Item: ' + item.id);
-			  };
-			  $scope.share = function(item) {
-			    alert('Share Item: ' + item.id);
-			  };
-			  
-			  $scope.onItemDelete = function(item) {
-			    $scope.items.splice($scope.items.indexOf(item), 1);
-			  };
-	  $scope.clearSearch = function(){	  
-		  $scope.searchval = {};
-	  };
-	  
-	  $scope.searchval = {};
+.controller('registercontroller', function($scope,$http,$state,$ionicPopup,$ionicLoading,$ionicPopover) {
 	
-	  $scope.items = [
-		    { id: 0 , name:"jay" },
-		    { id: 1 , name:"ryan" },
-		    { id: 2 , name:"oliveros" },
-		    { id: 3 , name:"eraine" },
-		    { id: 4 , name:"bernadette" },
-		    { id: 5 , name:"santos" },
-		    { id: 6 , name:"otayde" },
-		    { id: 7 , name:"angeles" },
-		    { id: 8 , name:"jaylord" },
-		    { id: 9 , name:"jaybee" },
-		    { id: 10 , name:"jayson" }
-		  ];
-
-})
-
-
-.controller('registercontroller', function($scope,$http,$state,$ionicPopup,$ionicLoading) {
+	 $ionicLoading.show({
+	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+	            '<p>Loading ...</p>',
+	          animation: 'fade-in',
+	          noBackdrop: false,
+	          maxWidth: 500,
+	          showDelay: 0
+	 });
 	
+    $ionicPopover.fromTemplateUrl('templates/popover.html', {
+	    scope: $scope,
+	}).then(function(popover) {
+	    $scope.popover = popover;
+	});
+    
+    $scope.getItem = function(item){
+    	$scope.customer.position = item.role;
+    	$scope.popover.hide();
+    };
+    
 	var init = function () {
 	    $http({
 		  method: 'GET',
@@ -98,7 +78,10 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		     for (i=0;i<response.data.length;i++){
 		    	 $scope.roles.push(response.data[i])
 		     }
-		     //$scope.roles = response.data.contactnumber;     
+		     //$scope.roles = response.data.contactnumber;   
+		     //remove backdrop
+		     $scope.customer.position = response.data[0].role;
+		     $ionicLoading.hide();
 		}, function errorCallback(response) {
 			 console.log(response);
 		});	
@@ -116,6 +99,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	$scope.gendervalue = {value:"male"};
 	  
 	$scope.roles = [];
+	$scope.role={value:""};
 	  
 	$scope.customer = {
 			  firstname:"",
@@ -124,6 +108,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			  emailaddress:"",
 			  address:"",
 			  gender:"",
+			  position:"",
 			  username:"",
 			  password:""
 	};
@@ -141,7 +126,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		  
 		  $scope.customer.gender = $scope.gendervalue.value;
 		  
-		  
+		  console.log(JSON.stringify($scope.role.value));
 		  $http.post('/registerhere', JSON.stringify($scope.customer)).then(function (data) {
 			  	  console.log(data.data.code);
 			  	  if(data.data.code == "200"){

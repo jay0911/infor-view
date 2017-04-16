@@ -1,0 +1,41 @@
+<ion-side-menus>
+
+  <ion-pane ion-side-menu-content>
+	<ion-nav-bar ng-controller="backController" class="bar-positive">
+	  <ion-nav-back-button class="button-clear"
+	    ng-click="myGoBack()">
+	    <i class="ion-arrow-left-c"></i> Back
+	  </ion-nav-back-button>
+	</ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+    <header class="bar bar-header bar-stable">
+      <h1 class="title">Available Menus</h1>
+    </header>
+    
+    <ion-content class="has-header">
+      <ion-list>
+        <ion-item nav-clear menu-close ui-sref="tabs.home" ui-sref-opts="{location:false}">
+          Homepage
+        </ion-item>
+        <ion-item nav-clear menu-close ui-sref="tabs.availableslots" ui-sref-opts="{location:false}">
+          Available Slots
+        </ion-item>
+         <ion-item nav-clear menu-close ui-sref="tabs.adminrolemaintenance" ui-sref-opts="{location:false}">
+          Roles Maintenance
+        </ion-item>
+        <ion-item nav-clear menu-close ui-sref="tabs.adminparkingmaintenance" ui-sref-opts="{location:false}">
+          Parking Maintenance
+        </ion-item>
+        <ion-item nav-clear menu-close ui-sref="tabs.userinfo" ui-sref-opts="{location:false}">
+          User Info
+        </ion-item>
+        <ion-item nav-clear menu-close ng-click="dologout()">
+          Log out
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

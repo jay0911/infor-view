@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.infor.dto.UserMaintenanceDTO;
+import com.infor.models.InforUser;
+
 
 /**
  * 
@@ -29,7 +32,7 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	RestTemplate rt;
 	
-	private final static String CHECK_CREDENTIALS = "http://usermaintenance-service/checkcredentials";
+	private final static String CHECK_CREDENTIALS = "http://maintenance-service/checkcredentials";
 	
 	/**
 	 * this method will check if the username in the database is valid then rejects or accepts the user when logging in
@@ -39,18 +42,22 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) 
 			throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-//		UserMaintenanceDTO dto = new UserMaintenanceDTO();
-//		dto.setUsername(username);
+		UserMaintenanceDTO dto = new UserMaintenanceDTO();
+		InforUser user = new InforUser();
+		user.setUsername(username);
+		dto.setInforUser(user);
 
-//		UserMaintenanceDTO userPrivateInfo = rt.postForObject(CHECK_CREDENTIALS,dto, UserMaintenanceDTO.class);
+		UserMaintenanceDTO userPrivateInfo = rt.postForObject(CHECK_CREDENTIALS,dto, UserMaintenanceDTO.class);
 		
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//		String hashedPassword = passwordEncoder.encode(userPrivateInfo.getPassword());
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(userPrivateInfo.getInforUser().getPassword());
 		
-//		if (userPrivateInfo == null) {
-//			throw new UsernameNotFoundException("User " + username + " not found");
-//		}
-		return new UserConfigurable(1,"test","test","test","test",createAuthorities("test"));
+		if (userPrivateInfo == null) {
+			throw new UsernameNotFoundException("User " + username + " not found");
+		}
+		return new UserConfigurable(userPrivateInfo.getInforUser().getUserid()
+				,userPrivateInfo.getInforUser().getUsername(),hashedPassword,userPrivateInfo.getInforUser().getFirstname(),
+				userPrivateInfo.getInforUser().getPosition(),createAuthorities(userPrivateInfo.getInforUser().getPosition()));
 	}
 	
 	/**

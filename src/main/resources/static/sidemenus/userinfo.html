@@ -1,6 +1,9 @@
-      <ion-view view-title="Register here">
+      <ion-view view-title="Modify User Data">
+        <ion-nav-buttons side="left">
+		    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+		</ion-nav-buttons>
         <ion-content class="padding">
-        <form method="post" name="simpleionform" novalidation="" ng-submit="onsubmit()">
+        <form method="post" name="simpleionform" novalidation="" ng-submit="simpleionform.$valid &amp;&amp; onsubmit()">
         	<div class="list">
         	
         	<div class="item item-divider">
@@ -38,25 +41,23 @@
 	                   ng-model="gendervalue.value">
 	          {{ item.text }}
 	        </ion-radio>
-	      
-	       
-			
+	      			
 			<div class="item item-divider">
 			   Position
 			</div>
   			<a class="item item-icon-left item-icon-right" ng-click="popover.show($event)">
 			    <i class="icon ion-chatbubble-working"></i>
 			    {{ customer.position }}
-			    <i  ng-show="submitted &amp;&amp; simpleionform.customer.position.$error.required" class="icon ion-heart">required</i>	
+			    <i class="icon ion-ios-telephone-outline" ></i>
 			</a>
+			 
 	        
 	        <div class="item item-divider">
 			   User log-in credentials
 			</div>
-			<label class="item item-icon-left item-icon-right">
+			<label class="item item-icon-left ">
         		<i class="icon ion-social-instagram-outline"></i>
-			    <input type="text" name="username" placeholder="username" ng-model="customer.username" required="required" />		   
-				<i  ng-show="submitted &amp;&amp; simpleionform.username.$error.required" class="icon ion-heart">required</i>			
+			    {{ customer.username }}	   		
 			</label>
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-android-lock"></i>
@@ -71,7 +72,8 @@
         </ion-content>
       </ion-view>
       
-    <script id="templates/popover.html" type="text/ng-template">
+      
+      <script id="templates/popover.html" type="text/ng-template">
       <ion-popover-view class="contendheight">
         <ion-content>
           <div class="list">
