@@ -211,8 +211,34 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 		  
 })
-.controller('adminrolemaintenance', function($scope,$http,$ionicLoading,$ionicPopup,$state,$ionicPopover) {
+.controller('adminrolemaintenance', function($scope,$ionicPopup) {
+	$scope.roleinput = {};
+	$scope.roles = [];
+	$scope.clickme = function(){
+	     var alertPopup = $ionicPopup.alert({
+	       title: 'Hello!',
+	       template: 'Swipe left to delete..'
+	     });
+	     alertPopup.then(function(res) {
+	       console.log('Thank you for deleting');
+	     });
+	   
+	};
+    $scope.doAdd = function(item) {
+        //check to see if text has been entered, if not exit
+        if (item.input == null || item.input == ''){return;}
+        
+          //if there is text add it to the array
+          $scope.roles.push({role:item.input});
+          
+          //clear the textbox
+          $scope.roleinput.input = '';
 
+      };
+      
+      $scope.onItemDelete = function(item) {
+    	    $scope.roles.splice($scope.roles.indexOf(item), 1);
+      };
 })
 .controller('backController', function($scope, $ionicHistory,$state) {
 	$scope.myGoBack = function() {
