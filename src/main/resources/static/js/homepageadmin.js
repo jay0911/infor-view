@@ -211,7 +211,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 		  
 })
-.controller('adminrolemaintenance', function($scope,$ionicPopup) {
+.controller('adminrolemaintenance', function($scope,$ionicPopup,$http) {
 	$scope.roleinput = {};
 	$scope.roles = [];
 	$scope.clickme = function(){
@@ -239,6 +239,22 @@ angular.module('ionicApp', ['ionic','ui.router'])
       $scope.onItemDelete = function(item) {
     	    $scope.roles.splice($scope.roles.indexOf(item), 1);
       };
+      
+  	var init = function () {
+	    $http({
+			  method: 'GET',
+			  url: '/getroles'
+			}).then(function successCallback(response) {
+			    console.log(response);
+			    for (i=0;i<response.data.length;i++){
+			    	 $scope.roles.push(response.data[i])
+			    }  
+			}, function errorCallback(response) {
+				 console.log(response);
+		});	
+  	};
+
+  	init();
 })
 .controller('backController', function($scope, $ionicHistory,$state) {
 	$scope.myGoBack = function() {
