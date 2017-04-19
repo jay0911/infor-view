@@ -1,0 +1,93 @@
+      <ion-view view-title="Car Own">
+        <ion-nav-buttons side="left">
+		    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+		</ion-nav-buttons>
+		<ion-nav-buttons side="right">
+		    <button menu-toggle="right" class="button button-icon ion-compose" ng-click="modal.show()"></button>
+		</ion-nav-buttons>
+        <ion-content class="padding">
+	      <ion-list>
+	        <ion-item ng-repeat="item in cars" 
+	                  item="item"
+	                  class="item-remove-animate" ng-click="clickme()">
+	           <h2> {{ item.carbrand }} </h2> {{ item.platenumber }} {{ item.color }}
+	          <ion-option-button class="button-positive"
+	                             ng-click="onItemEdit(item)">
+	            Edit
+	          </ion-option-button>
+	          <ion-option-button class="button-assertive"
+	                             ng-click="onItemDelete(item)">
+	            Delete
+	          </ion-option-button>
+	        </ion-item>
+	      </ion-list>
+        </ion-content>
+        
+        
+        
+     <script id="templates/modal.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">New Contact</h1>
+          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-email"></i>
+			    <input ng-model="car.platenumber" type="text">   
+				<i  ng-show="req.platenumber" class="icon ion-heart">required</i>		
+			</label>
+
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-email"></i>
+			    <input ng-model="car.carbrand" type="text">   	
+				<i  ng-show="req.carbrand" class="icon ion-heart">required</i>	
+			</label>
+
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-email"></i>
+			    <input ng-model="car.color" type="text">   	
+				<i  ng-show="req.color" class="icon ion-heart">required</i>	
+			</label>
+
+            <button class="button button-full button-positive" ng-click="create(car)">Create</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    
+    <script id="templates/modal-edit.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">New Contact</h1>
+          <button class="button button-clear button-primary" ng-click="modaledit.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-email"></i>
+			    <input ng-model="edit.platenumber" type="text">   
+				<i  ng-show="req.platenumber" class="icon ion-heart">required</i>		
+			</label>
+
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-email"></i>
+			    <input ng-model="edit.carbrand" type="text">   	
+				<i  ng-show="req.carbrand" class="icon ion-heart">required</i>	
+			</label>
+
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-email"></i>
+			    <input ng-model="edit.color" type="text">   	
+				<i  ng-show="req.color" class="icon ion-heart">required</i>	
+			</label>
+
+            <button class="button button-full button-positive" ng-click="editme(edit)">Edit</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    
+    </ion-view>
+      
