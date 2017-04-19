@@ -27,13 +27,12 @@ public class MainController {
 	@GetMapping("/homepage")
 	public String homepagecustomers(){	
         Set<String> roles = AuthorityUtils.authorityListToSet(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-        if (roles.contains("janitor")) {
+        if (roles.contains("admin")) {
         	return homepageadmin();
         }
-		return "pages/homepageusers";
+		return "pages/homepagenormal";
 	}
 	
-	@GetMapping("/homepageadmin")
 	public String homepageadmin(){		
 		return "pages/homepageadmin";
 	}

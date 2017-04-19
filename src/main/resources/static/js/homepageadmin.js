@@ -214,6 +214,11 @@ angular.module('ionicApp', ['ionic','ui.router'])
 .controller('adminrolemaintenance', function($scope,$ionicPopup,$http) {
 	$scope.roleinput = {};
 	$scope.roles = [];
+    $scope.customer = {
+      	  position:""
+    };
+    
+    
 	$scope.clickme = function(){
 	     var alertPopup = $ionicPopup.alert({
 	       title: 'Hello!',
@@ -227,17 +232,33 @@ angular.module('ionicApp', ['ionic','ui.router'])
     $scope.doAdd = function(item) {
         //check to see if text has been entered, if not exit
         if (item.input == null || item.input == ''){return;}
-        
-          //if there is text add it to the array
+          
+          $scope.customer.position = item.input;
+          //if there is text add it to the array 
           $scope.roles.push({role:item.input});
+		  $http.post('/saverole', JSON.stringify($scope.customer)).then(function (data) {
+			  	  console.log(data);
+		  }, function (data) {
+				  console.log(data);
+		  }).finally(function() {
+				    // called no matter success or failure
+		  });
           
           //clear the textbox
           $scope.roleinput.input = '';
 
       };
-      
       $scope.onItemDelete = function(item) {
-    	    $scope.roles.splice($scope.roles.indexOf(item), 1);
+    	   
+    	  $scope.customer.position = item.role;
+	      $http.post('/deleterole', JSON.stringify($scope.customer)).then(function (data) {
+				  $scope.roles.splice($scope.roles.indexOf(item), 1);
+			  	  console.log(data);
+		  }, function (data) {
+				  console.log(data);
+		  }).finally(function() {
+				    // called no matter success or failure
+		  });
       };
       
   	var init = function () {

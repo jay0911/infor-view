@@ -25,6 +25,8 @@ public class AjaxCallsMaintenance {
 	private final static String REGISTER_USER = "http://maintenance-service/registeruserservice";
 	private final static String GET_USERINFO = "http://maintenance-service/getuserinfo";
 	private final static String MODIFY_USER = "http://maintenance-service/modifyuser";
+	private final static String DELETE_ROLE = "http://maintenance-service/deleterole";
+	private final static String SAVE_ROLE = "http://maintenance-service/saverole";
 	
 	@GetMapping("/getroles")
 	public List<InforRoles> getRoles(){
@@ -49,6 +51,16 @@ public class AjaxCallsMaintenance {
 	public AjaxResponseBody modifyAccount(@RequestBody UserMaintenanceDTO modifyform){
 		System.out.println(modifyform.toString());
 		return rt.postForObject(MODIFY_USER, modifyform, AjaxResponseBody.class);
-	
 	}
+	
+	@PostMapping(value = "/deleterole")
+	public AjaxResponseBody deleteRole(@RequestBody UserMaintenanceDTO deleteFORM){
+		return rt.postForObject(DELETE_ROLE, deleteFORM, AjaxResponseBody.class);
+	}
+	
+	@PostMapping(value = "/saverole")
+	public AjaxResponseBody saverole(@RequestBody UserMaintenanceDTO saveform){
+		return rt.postForObject(SAVE_ROLE, saveform, AjaxResponseBody.class);
+	}
+	
 }
