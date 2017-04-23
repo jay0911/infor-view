@@ -18,10 +18,15 @@ public class MainController {
 		return "pages/homepagepublic";
 	}
 	
+	@GetMapping("/")
+	public String slash(Model model){	
+		return homepagepublic();
+	}
+	
 	@GetMapping("/login")
 	public String log(Model model){	
 		model.addAttribute("customer",new InforUser());
-		return "pages/login";
+		return homepagepublic();
 	}
 
 	@GetMapping("/homepage")

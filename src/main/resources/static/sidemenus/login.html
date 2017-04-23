@@ -1,0 +1,27 @@
+      <ion-view view-title="Log-in">
+        <ion-nav-bar class="nav-title-slide-ios7 bar-positive">
+          <ion-nav-back-button class="button-icon ion-arrow-left-c">
+          </ion-nav-back-button>
+        </ion-nav-bar>
+        <ion-content class="padding">
+        <form method="post" name="simpleionform" novalidation="" ng-submit="onsubmit()">
+        
+	        <div class="item item-divider">
+			   User log-in credentials
+			</div>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-social-instagram-outline"></i>
+			    <input type="text" name="username" placeholder="username" ng-model="customer.username" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.username.$error.required" class="icon ion-heart">required</i>			
+			</label>
+			<label class="item item-icon-left item-icon-right">
+        		<i class="icon ion-android-lock"></i>
+			    <input type="password" name="password" placeholder="password" ng-model="customer.password" required="required" />		   
+				<i  ng-show="submitted &amp;&amp; simpleionform.password.$error.required" class="icon ion-heart">required</i>			
+			</label>
+
+			<button type="submit" class="button button-block button-balanced" ng-click="submitted=true">Submit</button>
+		</form>
+        </ion-content>
+      </ion-view>
+      

@@ -64,11 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {        
 	    http
 	        .authorizeRequests()
-	        .antMatchers("/","/getroles", "/homepagepublic","/registerhere","/login", "/js/**","/css/**","/sidemenus/**").permitAll()
+	        .antMatchers("/","/getroles", "/homepagepublic","/registerhere","/login","/loginhere", "/js/**","/css/**","/sidemenus/**").permitAll()
 	        .anyRequest().authenticated()
 	        .and()
 	    .formLogin()
-	        .loginPage("/login")
+	        .loginPage("/homepagepublic")
 	        .defaultSuccessUrl("/homepage", true)
 	        .permitAll()
 	        .and()     
