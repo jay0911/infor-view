@@ -222,57 +222,70 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	  
 	$scope.create = function(u) { 
 		console.log(u);
-	    if(u.platenumber == null){
-	    	$scope.req.platenumber = true;
+	    if(u.carplatenumber == null){
+	    	$scope.req.carplatenumber = true;
 	    }
-	    if(u.color == null){
-	    	$scope.req.color = true;
+	    if(u.carcolor == null){
+	    	$scope.req.carcolor = true;
 	    }
 	    if(u.carbrand == null){
 	    	$scope.req.carbrand = true;
 	    }
 	    	
-	    if(u.platenumber != null && u.color != null && u.carbrand != null){
-	    	$scope.replica.platenumber = u.platenumber;
+	    if(u.carplatenumber != null && u.carcolor != null && u.carbrand != null){
+	    	$scope.replica.carplatenumber = u.carplatenumber;
 	    	$scope.replica.carbrand = u.carbrand;
-	    	$scope.replica.color = u.color;
+	    	$scope.replica.carcolor = u.carcolor;
 	    	
-	    	$scope.cars.push({platenumber:$scope.replica.platenumber
+	    	$scope.cars.push({carplatenumber:$scope.replica.carplatenumber
 	    		,carbrand:$scope.replica.carbrand
-	    		,color:$scope.replica.color
+	    		,carcolor:$scope.replica.carcolor
 	    		});
-	    	u.platenumber = "";
-	    	u.carbrand = "";
-	    	u.color = "";
-	    	$scope.modal.hide();
+	    	$scope.car = {carplatenumber:$scope.replica.carplatenumber
+		    		,carbrand:$scope.replica.carbrand
+		    		,carcolor:$scope.replica.carcolor
+		    		};
+	    	
+			  $http.post('/addcar', JSON.stringify($scope.car)).then(function (data) {
+			  	  console.log(data.data.code); 
+			  }, function (data) {
+					  console.log(data);
+			  }).finally(function() {
+					    // called no matter success or failure
+			    	u.carplatenumber = "";
+			    	u.carbrand = "";
+			    	u.carcolor = "";
+			    	$scope.modal.hide();
+			  });
+	    	
 	    }  
 	};
 	
 	$scope.editme = function(u) { 
 		console.log(u);
-	    if(u.platenumber == null){
-	    	$scope.req.platenumber = true;
+	    if(u.carplatenumber == null){
+	    	$scope.req.carplatenumber = true;
 	    }
-	    if(u.color == null){
-	    	$scope.req.color = true;
+	    if(u.carcolor == null){
+	    	$scope.req.carcolor = true;
 	    }
 	    if(u.carbrand == null){
 	    	$scope.req.carbrand = true;
 	    }
 	    	
-	    if(u.platenumber != null && u.color != null && u.carbrand != null){
-	    	$scope.replica.platenumber = u.platenumber;
+	    if(u.carplatenumber != null && u.carcolor != null && u.carbrand != null){
+	    	$scope.replica.carplatenumber = u.carplatenumber;
 	    	$scope.replica.carbrand = u.carbrand;
-	    	$scope.replica.color = u.color;
+	    	$scope.replica.carcolor = u.carcolor;
 	    	
-	    	u.platenumber = "";
+	    	u.carplatenumber = "";
 	    	u.carbrand = "";
-	    	u.color = "";
+	    	u.carcolor = "";
 			$scope.cars.splice($scope.currentindex, 1);
 			
-	    	$scope.cars.push({platenumber:$scope.replica.platenumber
+	    	$scope.cars.push({carplatenumber:$scope.replica.carplatenumber
 	    		,carbrand:$scope.replica.carbrand
-	    		,color:$scope.replica.color
+	    		,carcolor:$scope.replica.carcolor
 	    		});
 	    	
 	    	$scope.modaledit.hide();
@@ -287,9 +300,9 @@ angular.module('ionicApp', ['ionic','ui.router'])
     
     $scope.onItemEdit = function(item) {
     	$ionicListDelegate.closeOptionButtons();
-    	$scope.edit.platenumber = item.platenumber;
+    	$scope.edit.carplatenumber = item.carplatenumber;
     	$scope.edit.carbrand = item.carbrand;
-    	$scope.edit.color = item.color;
+    	$scope.edit.carcolor = item.carcolor;
     	$scope.currentindex = $scope.cars.indexOf(item);
     	$scope.modaledit.show();
     };
@@ -300,6 +313,11 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			  url: '/getcarowned'
 			}).then(function successCallback(response) {
 			    console.log(response);
+			    for (i=0;i<response.data.length;i++){
+				    $scope.cars.push({carplatenumber:response.data[i].carplatenumber,carbrand:response.data[i].carbrand
+				    		,carcolor:response.data[i].carcolor
+				    		});
+			    }  
 			     	 
 			}, function errorCallback(response) {
 				 console.log(response);

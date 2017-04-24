@@ -10,7 +10,7 @@
 	        <ion-item ng-repeat="item in cars" 
 	                  item="item"
 	                  class="item-remove-animate" ng-click="clickme()">
-	           <h2> {{ item.carbrand }} </h2> {{ item.platenumber }} {{ item.color }}
+	           <h2> {{ item.carbrand }} </h2> {{ item.carplatenumber }} {{ item.carcolor }}
 	          <ion-option-button class="button-positive"
 	                             ng-click="onItemEdit(item)">
 	            Edit
@@ -35,8 +35,8 @@
           <div class="list">
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-card"></i>
-			    <input ng-model="car.platenumber" type="text" placeholder="platenumber">   
-				<i  ng-show="req.platenumber" class="icon ion-heart">required</i>		
+			    <input ng-model="car.carplatenumber" type="text" placeholder="platenumber">   
+				<i  ng-show="req.carplatenumber" class="icon ion-heart">required</i>		
 			</label>
 
 			<label class="item item-icon-left item-icon-right">
@@ -47,8 +47,8 @@
 
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-chatbubble-working"></i>
-			    <input ng-model="car.color" type="text" placeholder="carcolor">   	
-				<i  ng-show="req.color" class="icon ion-heart">required</i>	
+			    <input ng-model="car.carcolor" type="text" placeholder="carcolor">   	
+				<i  ng-show="req.carcolor" class="icon ion-heart">required</i>	
 			</label>
 
             <button class="button button-full button-positive" ng-click="create(car)">Create</button>
@@ -67,7 +67,7 @@
           <div class="list">
 			<label class="item item-icon-left">
         		<i class="icon ion-card"></i>
-			    {{ edit.platenumber }}	
+			    {{ edit.carplatenumber }}	
 			</label>
 
 			<label class="item item-icon-left item-icon-right">
@@ -78,8 +78,8 @@
 
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-chatbubble-working"></i>
-			    <input ng-model="edit.color" type="text">   	
-				<i  ng-show="req.color" class="icon ion-heart">required</i>	
+			    <input ng-model="edit.carcolor" type="text">   	
+				<i  ng-show="req.carcolor" class="icon ion-heart">required</i>	
 			</label>
 
             <button class="button button-full button-positive" ng-click="editme(edit)">Edit</button>

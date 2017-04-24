@@ -29,6 +29,7 @@ public class AjaxCallsMaintenance {
 	private final static String DELETE_ROLE = "http://maintenance-service/deleterole";
 	private final static String SAVE_ROLE = "http://maintenance-service/saverole";
 	private final static String GET_CARS = "http://maintenance-service/selectcar";
+	private final static String SAVE_CARS = "http://maintenance-service/savecar";
 	
 	@GetMapping("/getroles")
 	public List<InforRoles> getRoles(){
@@ -65,13 +66,20 @@ public class AjaxCallsMaintenance {
 		return rt.postForObject(SAVE_ROLE, saveform, AjaxResponseBody.class);
 	}
 	
+	@PostMapping(value = "/addcar")
+	public AjaxResponseBody addcar(@RequestBody UserMaintenanceDTO savecar,Authentication authentication){
+		UserConfigurable userdetails = (UserConfigurable) authentication.getPrincipal();
+		savecar.setUserid(userdetails.getUserid());
+		return rt.postForObject(SAVE_CARS, savecar, AjaxResponseBody.class);
+	}
+	
 	@GetMapping(value = "/getcarowned")
 	public List<InforCar> getcarowned(Authentication authentication){
 		UserMaintenanceDTO dto = new UserMaintenanceDTO();
 		UserConfigurable userdetails = (UserConfigurable) authentication.getPrincipal();
 		dto.setUserid(userdetails.getUserid());
 		UserMaintenanceDTO returnDTO  = rt.postForObject(GET_CARS,dto, UserMaintenanceDTO.class);
-		return null;
+		return returnDTO.getInforCars();
 	}
 	
 }
