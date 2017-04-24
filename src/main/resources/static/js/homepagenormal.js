@@ -200,7 +200,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 		  
 })
-.controller('carown', function($scope, $ionicHistory,$state,$ionicModal,$ionicListDelegate) {
+.controller('carown', function($scope, $ionicHistory,$state,$ionicModal,$ionicListDelegate,$http) {
 	$scope.cars = [];
 	$scope.car = [];
 	$scope.edit = [];
@@ -293,6 +293,20 @@ angular.module('ionicApp', ['ionic','ui.router'])
     	$scope.currentindex = $scope.cars.indexOf(item);
     	$scope.modaledit.show();
     };
+    
+	var init = function () {
+	    $http({
+			  method: 'GET',
+			  url: '/getcarowned'
+			}).then(function successCallback(response) {
+			    console.log(response);
+			     	 
+			}, function errorCallback(response) {
+				 console.log(response);
+		});	
+	};
+	
+	init();
 	
 })
 .controller('backController', function($scope, $ionicHistory,$state) {

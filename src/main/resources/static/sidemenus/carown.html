@@ -28,26 +28,26 @@
      <script id="templates/modal.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
-          <h1 class="title">New Contact</h1>
+          <h1 class="title">Car owned</h1>
           <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
         </ion-header-bar>
         <ion-content class="padding">
           <div class="list">
 			<label class="item item-icon-left item-icon-right">
-        		<i class="icon ion-email"></i>
-			    <input ng-model="car.platenumber" type="text">   
+        		<i class="icon ion-card"></i>
+			    <input ng-model="car.platenumber" type="text" placeholder="platenumber">   
 				<i  ng-show="req.platenumber" class="icon ion-heart">required</i>		
 			</label>
 
 			<label class="item item-icon-left item-icon-right">
-        		<i class="icon ion-email"></i>
-			    <input ng-model="car.carbrand" type="text">   	
+        		<i class="icon ion-pricetags"></i>
+			    <input ng-model="car.carbrand" type="text" placeholder="carbrand">   	
 				<i  ng-show="req.carbrand" class="icon ion-heart">required</i>	
 			</label>
 
 			<label class="item item-icon-left item-icon-right">
-        		<i class="icon ion-email"></i>
-			    <input ng-model="car.color" type="text">   	
+        		<i class="icon ion-chatbubble-working"></i>
+			    <input ng-model="car.color" type="text" placeholder="carcolor">   	
 				<i  ng-show="req.color" class="icon ion-heart">required</i>	
 			</label>
 
@@ -60,25 +60,24 @@
     <script id="templates/modal-edit.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
-          <h1 class="title">New Contact</h1>
+          <h1 class="title">Car owned</h1>
           <button class="button button-clear button-primary" ng-click="modaledit.hide()">Cancel</button>
         </ion-header-bar>
         <ion-content class="padding">
           <div class="list">
-			<label class="item item-icon-left item-icon-right">
-        		<i class="icon ion-email"></i>
-			    <input ng-model="edit.platenumber" type="text">   
-				<i  ng-show="req.platenumber" class="icon ion-heart">required</i>		
+			<label class="item item-icon-left">
+        		<i class="icon ion-card"></i>
+			    {{ edit.platenumber }}	
 			</label>
 
 			<label class="item item-icon-left item-icon-right">
-        		<i class="icon ion-email"></i>
+        		<i class="icon ion-pricetags"></i>
 			    <input ng-model="edit.carbrand" type="text">   	
 				<i  ng-show="req.carbrand" class="icon ion-heart">required</i>	
 			</label>
 
 			<label class="item item-icon-left item-icon-right">
-        		<i class="icon ion-email"></i>
+        		<i class="icon ion-chatbubble-working"></i>
 			    <input ng-model="edit.color" type="text">   	
 				<i  ng-show="req.color" class="icon ion-heart">required</i>	
 			</label>

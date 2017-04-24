@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.infor.dto.UserMaintenanceDTO;
 import com.infor.models.AjaxResponseBody;
+import com.infor.models.InforCar;
 import com.infor.models.InforRoles;
 import com.infor.security.UserConfigurable;
 
@@ -27,6 +28,7 @@ public class AjaxCallsMaintenance {
 	private final static String MODIFY_USER = "http://maintenance-service/modifyuser";
 	private final static String DELETE_ROLE = "http://maintenance-service/deleterole";
 	private final static String SAVE_ROLE = "http://maintenance-service/saverole";
+	private final static String GET_CARS = "http://maintenance-service/selectcar";
 	
 	@GetMapping("/getroles")
 	public List<InforRoles> getRoles(){
@@ -61,6 +63,15 @@ public class AjaxCallsMaintenance {
 	@PostMapping(value = "/saverole")
 	public AjaxResponseBody saverole(@RequestBody UserMaintenanceDTO saveform){
 		return rt.postForObject(SAVE_ROLE, saveform, AjaxResponseBody.class);
+	}
+	
+	@GetMapping(value = "/getcarowned")
+	public List<InforCar> getcarowned(Authentication authentication){
+		UserMaintenanceDTO dto = new UserMaintenanceDTO();
+		UserConfigurable userdetails = (UserConfigurable) authentication.getPrincipal();
+		dto.setUserid(userdetails.getUserid());
+		UserMaintenanceDTO returnDTO  = rt.postForObject(GET_CARS,dto, UserMaintenanceDTO.class);
+		return null;
 	}
 	
 }
