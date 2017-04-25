@@ -87,7 +87,16 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 })
 
-.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionicPopup,$ionicModal){
+.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionicPopup,$ionicModal,$http){
+	
+	$ionicLoading.show({
+	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+	            '<p>Loading ...</p>',
+	          animation: 'fade-in',
+	          noBackdrop: false,
+	          maxWidth: 500,
+	          showDelay: 0
+	});
 	
 	$ionicModal.fromTemplateUrl('templates/modal.html', {
 	    scope: $scope
@@ -101,19 +110,30 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	  
 	$scope.searchval = {};
 	
-	  $scope.items = [
-		    { id: 0 , parkingid:"jay" },
-		    { id: 1 , parkingid:"ryan" },
-		    { id: 2 , parkingid:"oliveros" },
-		    { id: 3 , parkingid:"eraine" },
-		    { id: 4 , parkingid:"bernadette" },
-		    { id: 5 , parkingid:"santos" },
-		    { id: 6 , parkingid:"otayde" },
-		    { id: 7 , parkingid:"angeles" },
-		    { id: 8 , parkingid:"jaylord" },
-		    { id: 9 , parkingid:"jaybee" },
-		    { id: 10 , parkingid:"jayson" }
-		  ];
+	$scope.parkings = [];
+	  
+		var init = function () {
+		    $http({
+				  method: 'GET',
+				  url: '/getallparking'
+				}).then(function successCallback(response) {
+				    console.log(response);
+				    for (i=0;i<response.data.length;i++){
+					    $scope.parkings.push(
+					    		{
+					    		userid:response.data[i].userid
+					    		,isparkingtandem:response.data[i].isparkingtandem
+					    		,tandemposition:response.data[i].tandemposition
+					    		,parkingid:response.data[i].parkingid
+					    		});
+				    }  
+				     $ionicLoading.hide(); 
+				}, function errorCallback(response) {
+					 console.log(response);
+			});	
+		};
+		
+		init();
 })
 
 

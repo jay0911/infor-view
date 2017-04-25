@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import com.infor.dto.UserMaintenanceDTO;
 import com.infor.models.AjaxResponseBody;
 import com.infor.models.InforCar;
+import com.infor.models.InforParking;
 import com.infor.models.InforRoles;
 import com.infor.security.UserConfigurable;
 
@@ -26,12 +27,16 @@ public class AjaxCallsMaintenance {
 	private final static String REGISTER_USER = "http://maintenance-service/registeruserservice";
 	private final static String GET_USERINFO = "http://maintenance-service/getuserinfo";
 	private final static String MODIFY_USER = "http://maintenance-service/modifyuser";
+	
 	private final static String DELETE_ROLE = "http://maintenance-service/deleterole";
 	private final static String SAVE_ROLE = "http://maintenance-service/saverole";
+	
 	private final static String GET_CARS = "http://maintenance-service/selectcar";
 	private final static String SAVE_CARS = "http://maintenance-service/savecar";
 	private final static String DELETE_CARS = "http://maintenance-service/deletecar";
 	private final static String EDIT_CARS = "http://maintenance-service/editcar";
+	
+	private final static String GET_PARKINGS = "http://maintenance-service/selectparking";
 	
 	/**
 	 * gets the user details of current user logged in
@@ -108,5 +113,9 @@ public class AjaxCallsMaintenance {
 		return rt.postForObject(EDIT_CARS, editcar, AjaxResponseBody.class);
 	}
 	
-	
+	@GetMapping(value = "/getallparking")
+	public List<InforParking> getallParking(){
+		UserMaintenanceDTO returnDTO  = rt.postForObject(GET_PARKINGS, createDTOinstance(), UserMaintenanceDTO.class);
+		return returnDTO.getInforParkings();
+	}
 }
