@@ -274,6 +274,20 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	    }
 	    	
 	    if(u.carplatenumber != null && u.carcolor != null && u.carbrand != null){
+	    	
+	    	$scope.car = {carplatenumber:u.carplatenumber
+		    		,carbrand:u.carbrand
+		    		,carcolor:u.carcolor
+		    		};
+	    	
+			$http.post('/editcar', JSON.stringify($scope.car)).then(function (data) {
+				console.log(data);
+			}, function (data) {
+				console.log(data);
+			}).finally(function() {
+					    // called no matter success or failure
+			});
+	    	
 	    	$scope.replica.carplatenumber = u.carplatenumber;
 	    	$scope.replica.carbrand = u.carbrand;
 	    	$scope.replica.carcolor = u.carcolor;
@@ -296,10 +310,24 @@ angular.module('ionicApp', ['ionic','ui.router'])
     $scope.onItemDelete = function(item) {
     	console.log($scope.cars.indexOf(item));
 		$scope.cars.splice($scope.cars.indexOf(item), 1);
+		
+    	$scope.car = {carplatenumber:item.carplatenumber
+	    		,carbrand:item.carbrand
+	    		,carcolor:item.carcolor
+	    		};
+    	
+		$http.post('/deletecar', JSON.stringify($scope.car)).then(function (data) {
+			console.log(data);
+		}, function (data) {
+			console.log(data);
+		}).finally(function() {
+				    // called no matter success or failure
+		});
+	   
     };
     
     $scope.onItemEdit = function(item) {
-    	$ionicListDelegate.closeOptionButtons();
+    	$ionicListDelegate.closeOptionButtons(); 	
     	$scope.edit.carplatenumber = item.carplatenumber;
     	$scope.edit.carbrand = item.carbrand;
     	$scope.edit.carcolor = item.carcolor;
