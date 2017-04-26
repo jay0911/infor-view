@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	RestTemplate rt;
 	
-	private final static String CHECK_CREDENTIALS = "http://maintenance-service/checkcredentials";
+	private final static String CHECK_CREDENTIALS = "http://users-service/checkcredentials";
 	
 	/**
 	 * this method will check if the username in the database is valid then rejects or accepts the user when logging in

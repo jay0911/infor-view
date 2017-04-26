@@ -23,20 +23,22 @@ public class AjaxCallsMaintenance {
 	@Autowired
 	private RestTemplate rt;
 
-	private static final String GET_ROLES_URI = "http://maintenance-service/getroles";
-	private final static String REGISTER_USER = "http://maintenance-service/registeruserservice";
-	private final static String GET_USERINFO = "http://maintenance-service/getuserinfo";
-	private final static String MODIFY_USER = "http://maintenance-service/modifyuser";
+
+	private final static String REGISTER_USER = "http://users-service/registeruserservice";
+	private final static String GET_USERINFO = "http://users-service/getuserinfo";
+	private final static String MODIFY_USER = "http://users-service/modifyuser";
 	
-	private final static String DELETE_ROLE = "http://maintenance-service/deleterole";
-	private final static String SAVE_ROLE = "http://maintenance-service/saverole";
+	private final static String DELETE_ROLE = "http://roles-service/deleterole";
+	private final static String SAVE_ROLE = "http://roles-service/saverole";
+	private static final String GET_ROLES_URI = "http://roles-service/getroles";
 	
-	private final static String GET_CARS = "http://maintenance-service/selectcar";
-	private final static String SAVE_CARS = "http://maintenance-service/savecar";
-	private final static String DELETE_CARS = "http://maintenance-service/deletecar";
-	private final static String EDIT_CARS = "http://maintenance-service/editcar";
+	private final static String GET_CARS = "http://cars-service/selectcar";
+	private final static String SAVE_CARS = "http://cars-service/savecar";
+	private final static String DELETE_CARS = "http://cars-service/deletecar";
+	private final static String EDIT_CARS = "http://cars-service/editcar";
 	
-	private final static String GET_PARKINGS = "http://maintenance-service/selectparking";
+	private final static String GET_PARKINGS = "http://parking-service/selectparking";
+	private final static String DELETE_PARKING = "http://parking-service/deleteparking";
 	
 	/**
 	 * gets the user details of current user logged in
@@ -116,6 +118,12 @@ public class AjaxCallsMaintenance {
 	@GetMapping(value = "/getallparking")
 	public List<InforParking> getallParking(){
 		UserMaintenanceDTO returnDTO  = rt.postForObject(GET_PARKINGS, createDTOinstance(), UserMaintenanceDTO.class);
+		return returnDTO.getInforParkings();
+	}
+	
+	@PostMapping(value = "/deleteparking")
+	public List<InforParking> deleteparking(@RequestBody UserMaintenanceDTO deleteparking){
+		UserMaintenanceDTO returnDTO  = rt.postForObject(DELETE_PARKING, deleteparking, UserMaintenanceDTO.class);
 		return returnDTO.getInforParkings();
 	}
 }

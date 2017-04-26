@@ -19,6 +19,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
     })
     .state('tabs.userinfo', {
       url: "/userinfo",
+      cache: false,
       views: {
         'menuContent': {
           controller: 'userinfocontroller',
@@ -28,6 +29,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
     })
     .state('tabs.carown', {
       url: "/carown",
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: "sidemenus/carown.html",
@@ -37,6 +39,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
     })
     .state('tabs.adminrolemaintenance', {
       url: "/adminrolemaintenance",
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: "sidemenus/adminrolemaintenance.html",
@@ -46,6 +49,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
     })
     .state('tabs.adminparkingmaintenance', {
       url: "/adminparkingmaintenance",
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: "sidemenus/adminparkingmaintenance.html",
@@ -53,7 +57,6 @@ angular.module('ionicApp', ['ionic','ui.router'])
         }
       }
     });
-
 
    $urlRouterProvider.otherwise("/tab/home");
 
@@ -111,6 +114,17 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	$scope.searchval = {};
 	
 	$scope.parkings = [];
+	$scope.parking = {
+			userid:-1
+			,isparkingtandem:""
+    		,tandemposition:""
+    		,parkingid:""
+	};
+	
+	$scope.isparkingtandem = [
+		{text:"Yes"},
+		{text:"No"}
+	]
 	  
 		var init = function () {
 		    $http({
@@ -134,6 +148,25 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		};
 		
 		init();
+		
+		$scope.deleteParking = function(item){
+			$scope.parkings.splice($scope.parkings.indexOf(item), 1);
+			
+	    	$scope.parking = {	
+	    			userid:item.userid
+	    			,isparkingtandem:item.isparkingtandem
+		    		,tandemposition:item.tandemposition
+		    		,parkingid:item.parkingid
+		    		};
+	    	
+			$http.post('/deleteparking', JSON.stringify($scope.parking)).then(function (data) {
+				console.log(data);
+			}, function (data) {
+				console.log(data);
+			}).finally(function() {
+					    // called no matter success or failure
+			});
+		};
 })
 
 
@@ -232,6 +265,9 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	    	u.carplatenumber = "";
 	    	u.carbrand = "";
 	    	u.carcolor = "";
+	    	$scope.car.carplatenumber= "";
+	    	$scope.car.carbrand="";
+	    	$scope.car.carcolor="";
 			$scope.cars.splice($scope.currentindex, 1);
 			
 	    	$scope.cars.push({carplatenumber:$scope.replica.carplatenumber

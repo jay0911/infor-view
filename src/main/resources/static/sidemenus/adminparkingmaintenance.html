@@ -20,8 +20,8 @@
           {{ item.parkingid }}
  
           <ion-option-button class="button-assertive"
-                             ng-click="edit(item)">
-            Edit
+                             ng-click="deleteParking(item)">
+            Delete
           </ion-option-button>
           <ion-option-button class="button-calm"
                              ng-click="share(item)">
@@ -34,7 +34,7 @@
 	<script id="templates/modal.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
-          <h1 class="title">Car owned</h1>
+          <h1 class="title">Add Parking</h1>
           <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
         </ion-header-bar>
         <ion-content class="padding">
@@ -45,17 +45,18 @@
 				<i  ng-show="req.carplatenumber" class="icon ion-heart">required</i>		
 			</label>
 
-			<label class="item item-icon-left item-icon-right">
-        		<i class="icon ion-pricetags"></i>
-			    <input ng-model="car.carbrand" type="text" placeholder="carbrand">   	
-				<i  ng-show="req.carbrand" class="icon ion-heart">required</i>	
-			</label>
+			<ion-radio name="group2" ng-repeat="item in isparkingtandem"
+	                   ng-value="item.text"
+	                   ng-model="parking.isparkingtandem">
+	          {{ item.text }}
+	        </ion-radio>
 
-			<label class="item item-icon-left item-icon-right">
-        		<i class="icon ion-chatbubble-working"></i>
-			    <input ng-model="car.carcolor" type="text" placeholder="carcolor">   	
-				<i  ng-show="req.carcolor" class="icon ion-heart">required</i>	
-			</label>
+			<ion-radio name="group1" ng-repeat="item in tandemposition"
+	                   ng-value="item.text"
+	                   ng-model="parking.tandemposition">
+	          {{ item.text }}
+	        </ion-radio>
+
 
             <button class="button button-full button-positive" ng-click="create(car)">Create</button>
           </div>

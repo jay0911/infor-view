@@ -18,6 +18,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
       }
     })
     .state('tabs.carown', {
+      cache: false,
       url: "/carown",
       views: {
         'menuContent': {
@@ -28,6 +29,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
     })
     .state('tabs.userinfo', {
       url: "/userinfo",
+      cache: false,
       views: {
         'menuContent': {
           controller: 'userinfocontroller',
@@ -295,6 +297,9 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	    	u.carplatenumber = "";
 	    	u.carbrand = "";
 	    	u.carcolor = "";
+	    	$scope.car.carplatenumber= "";
+	    	$scope.car.carbrand="";
+	    	$scope.car.carcolor="";
 			$scope.cars.splice($scope.currentindex, 1);
 			
 	    	$scope.cars.push({carplatenumber:$scope.replica.carplatenumber
