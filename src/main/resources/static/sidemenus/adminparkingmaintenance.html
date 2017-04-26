@@ -41,24 +41,22 @@
           <div class="list">
 			<label class="item item-icon-left item-icon-right">
         		<i class="icon ion-card"></i>
-			    <input ng-model="car.carplatenumber" type="text" placeholder="platenumber">   
-				<i  ng-show="req.carplatenumber" class="icon ion-heart">required</i>		
+			    <input ng-model="parking.parkingid" type="text" placeholder="Parking ID">   
+				<i  ng-show="req.parkingid" class="icon ion-heart">required</i>		
 			</label>
 
-			<ion-radio name="group2" ng-repeat="item in isparkingtandem"
+			<div class="item item-divider">
+			   Is Parking Tandem?
+			</div>
+			<ion-radio name="group1" ng-repeat="item in isparkingtandem"
 	                   ng-value="item.text"
-	                   ng-model="parking.isparkingtandem">
+	                   ng-model="isparkingtandeminit.text">
 	          {{ item.text }}
 	        </ion-radio>
 
-			<ion-radio name="group1" ng-repeat="item in tandemposition"
-	                   ng-value="item.text"
-	                   ng-model="parking.tandemposition">
-	          {{ item.text }}
-	        </ion-radio>
 
 
-            <button class="button button-full button-positive" ng-click="create(car)">Create</button>
+            <button class="button button-full button-positive" ng-click="create(parking)">Create</button>
           </div>
         </ion-content>
       </ion-modal-view>

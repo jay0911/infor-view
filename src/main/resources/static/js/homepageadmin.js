@@ -117,7 +117,6 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	$scope.parking = {
 			userid:-1
 			,isparkingtandem:""
-    		,tandemposition:""
     		,parkingid:""
 	};
 	
@@ -125,6 +124,8 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		{text:"Yes"},
 		{text:"No"}
 	]
+	
+	$scope.isparkingtandeminit = {text:"No"};
 	  
 		var init = function () {
 		    $http({
@@ -137,7 +138,6 @@ angular.module('ionicApp', ['ionic','ui.router'])
 					    		{
 					    		userid:response.data[i].userid
 					    		,isparkingtandem:response.data[i].isparkingtandem
-					    		,tandemposition:response.data[i].tandemposition
 					    		,parkingid:response.data[i].parkingid
 					    		});
 				    }  
@@ -155,7 +155,6 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	    	$scope.parking = {	
 	    			userid:item.userid
 	    			,isparkingtandem:item.isparkingtandem
-		    		,tandemposition:item.tandemposition
 		    		,parkingid:item.parkingid
 		    		};
 	    	
