@@ -115,17 +115,24 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	
 	$scope.parkings = [];
 	$scope.parking = {
-			userid:-1
-			,isparkingtandem:""
+			isparkingtandem:""
     		,parkingid:""
+    		,userid:0
 	};
+	$scope.isparkingtandemvalue = {checked:false};
 	
-	$scope.isparkingtandem = [
-		{text:"Yes"},
-		{text:"No"}
-	]
+	$scope.tandem = {user1:"",user2:""};
 	
-	$scope.isparkingtandeminit = {text:"No"};
+	$scope.isparkingtandemvalueChange = function(){
+		if($scope.isparkingtandemvalue.checked == true){
+			$scope.parking.isparkingtandem = "Yes";
+			console.log($scope.parking.isparkingtandem);
+		}else{
+			$scope.parking.isparkingtandem = "No";
+			console.log($scope.parking.isparkingtandem);
+		}
+		
+	};
 	  
 		var init = function () {
 		    $http({
@@ -136,8 +143,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 				    for (i=0;i<response.data.length;i++){
 					    $scope.parkings.push(
 					    		{
-					    		userid:response.data[i].userid
-					    		,isparkingtandem:response.data[i].isparkingtandem
+					    		isparkingtandem:response.data[i].isparkingtandem
 					    		,parkingid:response.data[i].parkingid
 					    		});
 				    }  
@@ -153,8 +159,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			$scope.parkings.splice($scope.parkings.indexOf(item), 1);
 			
 	    	$scope.parking = {	
-	    			userid:item.userid
-	    			,isparkingtandem:item.isparkingtandem
+	    			isparkingtandem:item.isparkingtandem
 		    		,parkingid:item.parkingid
 		    		};
 	    	

@@ -45,16 +45,25 @@
 				<i  ng-show="req.parkingid" class="icon ion-heart">required</i>		
 			</label>
 
-			<div class="item item-divider">
-			   Is Parking Tandem?
+        	<ion-toggle ng-model="isparkingtandemvalue.checked"
+                    ng-change="isparkingtandemvalueChange()">
+          		Is Parking Tandem?
+        	</ion-toggle>
+
+			<div ng-hide="!isparkingtandemvalue.checked" class="list">
+	        	<div class="item item-divider">
+			   		User log-in credentials
+				</div>
+
+			<label class="item item-icon-left ">
+        		<i class="icon ion-social-instagram-outline"></i>
+			    {{ customer.username }}	   		
+			</label>
+			<label class="item item-icon-left ">
+        		<i class="icon ion-social-instagram-outline"></i>
+			    {{ customer.username }}	   		
+			</label>
 			</div>
-			<ion-radio name="group1" ng-repeat="item in isparkingtandem"
-	                   ng-value="item.text"
-	                   ng-model="isparkingtandeminit.text">
-	          {{ item.text }}
-	        </ion-radio>
-
-
 
             <button class="button button-full button-positive" ng-click="create(parking)">Create</button>
           </div>
