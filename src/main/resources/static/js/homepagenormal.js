@@ -257,6 +257,9 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			    	u.carplatenumber = "";
 			    	u.carbrand = "";
 			    	u.carcolor = "";
+			    	$scope.car.carplatenumber= "";
+			    	$scope.car.carbrand="";
+			    	$scope.car.carcolor="";
 			    	$scope.modal.hide();
 			  });
 	    	

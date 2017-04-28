@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.infor.dto.UserMaintenanceDTO;
+import com.infor.dto.MaintenanceDTO;
 import com.infor.models.InforUser;
 
 
@@ -42,12 +42,12 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) 
 			throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		UserMaintenanceDTO dto = new UserMaintenanceDTO();
+		MaintenanceDTO dto = new MaintenanceDTO();
 		InforUser user = new InforUser();
 		user.setUsername(username);
 		dto.setInforUser(user);
 
-		UserMaintenanceDTO userPrivateInfo = rt.postForObject(CHECK_CREDENTIALS,dto, UserMaintenanceDTO.class);
+		MaintenanceDTO userPrivateInfo = rt.postForObject(CHECK_CREDENTIALS,dto, MaintenanceDTO.class);
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(userPrivateInfo.getInforUser().getPassword());

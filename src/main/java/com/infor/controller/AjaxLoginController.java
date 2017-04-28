@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.infor.dto.UserMaintenanceDTO;
+import com.infor.dto.MaintenanceDTO;
 
 @Controller
 @RequestMapping("/loginhere")
@@ -25,7 +25,7 @@ public class AjaxLoginController {
 
 	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody
-	public LoginStatus performLogin(@RequestBody UserMaintenanceDTO loginform,
+	public LoginStatus performLogin(@RequestBody MaintenanceDTO loginform,
 		HttpServletRequest request, HttpServletResponse response) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginform.getUsername(), loginform.getPassword());
 

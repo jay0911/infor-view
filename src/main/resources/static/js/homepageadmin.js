@@ -107,6 +107,12 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	    $scope.modal = modal;
 	});
 	
+	$ionicModal.fromTemplateUrl('templates/modaluser.html', {
+	    scope: $scope
+	}).then(function(modal) {
+	    $scope.modaluser = modal;
+	});
+	
 	$scope.clearSearch = function(){	  
 		  $scope.searchval = {};
 	};
@@ -121,7 +127,25 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 	$scope.isparkingtandemvalue = {checked:false};
 	
-	$scope.tandem = {user1:"",user2:""};
+	$scope.tandem = {user1:"-",user2:"-"};
+	$scope.usertoadd = {value:0};
+	
+	$scope.adduser = function(item){
+		$scope.hidemainmodal();
+		if(item==1){
+			$scope.usertoadd.value = 1;
+		}else{
+			$scope.usertoadd.value = 2;
+		}
+	};
+	$scope.createuser = function(item){
+		$scope.hidemodaluser();
+		if($scope.usertoadd.value == 1){
+			$scope.tandem.user1 = item.firstname;
+		}else{
+			$scope.tandem.user2 = item.firstname;
+		}
+	};
 	
 	$scope.isparkingtandemvalueChange = function(){
 		if($scope.isparkingtandemvalue.checked == true){
@@ -155,6 +179,8 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		
 		init();
 		
+		$scope.users = [];
+		
 		$scope.deleteParking = function(item){
 			$scope.parkings.splice($scope.parkings.indexOf(item), 1);
 			
@@ -169,6 +195,47 @@ angular.module('ionicApp', ['ionic','ui.router'])
 				console.log(data);
 			}).finally(function() {
 					    // called no matter success or failure
+			});
+		};
+		
+		$scope.hidemodaluser = function(){
+			$scope.modaluser.hide();
+			$scope.modal.show();
+		};
+		
+		
+		$scope.hidemainmodal = function(){
+			$scope.modaluser.show();
+			$scope.modal.hide();
+			$ionicLoading.show({
+		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+		            '<p>Loading ...</p>',
+		          animation: 'fade-in',
+		          noBackdrop: false,
+		          maxWidth: 500,
+		          showDelay: 0
+			});
+		    $http({
+				  method: 'GET',
+				  url: '/getusers'
+				}).then(function successCallback(response) {
+				    console.log(response);
+				    for (i=0;i<response.data.inforUsers.length;i++){
+					    $scope.users.push(
+					    		{
+					    		firstname:response.data.inforUsers[i].firstname
+					    		,lastname:response.data.inforUsers[i].lastname
+					    		,contactnumber:response.data.inforUsers[i].contactnumber
+					    		,emailaddress:response.data.inforUsers[i].emailaddress
+					    		,inforaddress:response.data.inforUsers[i].inforaddress
+					    		,position:response.data.inforUsers[i].position
+					    		,username:response.data.inforUsers[i].username
+					    		,gender:response.data.inforUsers[i].gender
+					    		});
+				    }  
+				     $ionicLoading.hide(); 
+				}, function errorCallback(response) {
+					 console.log(response);
 			});
 		};
 })
@@ -229,6 +296,9 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			    	u.carplatenumber = "";
 			    	u.carbrand = "";
 			    	u.carcolor = "";
+			    	$scope.car.carplatenumber= "";
+			    	$scope.car.carbrand="";
+			    	$scope.car.carcolor="";
 			    	$scope.modal.hide();
 			  });
 	    	
