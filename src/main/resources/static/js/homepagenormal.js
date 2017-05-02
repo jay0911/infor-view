@@ -202,7 +202,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 		  
 })
-.controller('carown', function($scope, $ionicHistory,$state,$ionicModal,$ionicListDelegate,$http) {
+.controller('carown', function($scope, $ionicHistory,$state,$ionicModal,$ionicListDelegate,$http,$ionicLoading) {
 	$scope.cars = [];
 	$scope.car = [];
 	$scope.edit = [];
@@ -221,6 +221,13 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	}).then(function(modal) {
 	    $scope.modaledit = modal;
 	});
+	
+	$scope.showModal = function(){
+	    $scope.req.carplatenumber = false;
+	    $scope.req.carcolor = false;
+	    $scope.req.carbrand = false;
+		$scope.modal.show();
+	}
 	  
 	$scope.create = function(u) { 
 		console.log(u);
@@ -233,8 +240,18 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	    if(u.carbrand == null){
 	    	$scope.req.carbrand = true;
 	    }
+	    
+	    if(u.carplatenumber == ""){
+	    	$scope.req.carplatenumber = true;
+	    }
+	    if(u.carcolor == ""){
+	    	$scope.req.carcolor = true;
+	    }
+	    if(u.carbrand == ""){
+	    	$scope.req.carbrand = true;
+	    }
 	    	
-	    if(u.carplatenumber != null && u.carcolor != null && u.carbrand != null){
+	    if(u.carplatenumber != null && u.carcolor != null && u.carbrand != null && u.carplatenumber != "" && u.carcolor != "" && u.carbrand != ""){
 	    	$scope.replica.carplatenumber = u.carplatenumber;
 	    	$scope.replica.carbrand = u.carbrand;
 	    	$scope.replica.carcolor = u.carcolor;
@@ -277,8 +294,18 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	    if(u.carbrand == null){
 	    	$scope.req.carbrand = true;
 	    }
+	    
+	    if(u.carplatenumber == ""){
+	    	$scope.req.carplatenumber = true;
+	    }
+	    if(u.carcolor == ""){
+	    	$scope.req.carcolor = true;
+	    }
+	    if(u.carbrand == ""){
+	    	$scope.req.carbrand = true;
+	    }
 	    	
-	    if(u.carplatenumber != null && u.carcolor != null && u.carbrand != null){
+	    if(u.carplatenumber != null && u.carcolor != null && u.carbrand != null && u.carplatenumber != "" && u.carcolor != "" && u.carbrand != ""){
 	    	
 	    	$scope.car = {carplatenumber:u.carplatenumber
 		    		,carbrand:u.carbrand
@@ -343,7 +370,17 @@ angular.module('ionicApp', ['ionic','ui.router'])
     	$scope.modaledit.show();
     };
     
+    
 	var init = function () {
+		$ionicLoading.show({
+	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+	            '<p>Loading ...</p>',
+	          animation: 'fade-in',
+	          noBackdrop: false,
+	          maxWidth: 500,
+	          showDelay: 0
+		});
+		
 	    $http({
 			  method: 'GET',
 			  url: '/getcarowned'
@@ -354,7 +391,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 				    		,carcolor:response.data[i].carcolor
 				    		});
 			    }  
-			     	 
+			    $ionicLoading.hide(); 
 			}, function errorCallback(response) {
 				 console.log(response);
 		});	

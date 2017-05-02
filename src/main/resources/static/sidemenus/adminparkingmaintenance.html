@@ -50,19 +50,19 @@
           		Is Parking Tandem?
         	</ion-toggle>
 
-			<div ng-hide="!isparkingtandemvalue.checked" class="list">
-	        	<div class="item item-divider">
+	        <div class="item item-divider">
 			   		Assign User
-				</div>
+			</div>
 
-  				<div class="item item-icon-left item-button-right">
+  			<div class="item item-icon-left item-button-right">
     				<i class="icon ion-social-instagram-outline"></i>
 			     		{{ tandem.user1 }} 
     				<button class="button button-positive" ng-click="adduser(1)">
       					<i class="icon ion-ios-telephone"></i>
     				</button>
-  				</div>
+  			</div>
 
+			<div ng-hide="!isparkingtandemvalue.checked" class="list">
   				<div class="item item-icon-left item-button-right">
     				<i class="icon ion-social-instagram-outline"></i>
 			     		{{ tandem.user2 }} 
