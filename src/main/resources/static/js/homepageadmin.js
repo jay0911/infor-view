@@ -120,6 +120,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	$scope.openMainModal = function(){
 		$scope.req.parkingid = "";
 		$scope.parking.parkingid = "";
+		$scope.tandemusers = [];
 		$scope.isparkingtandemvalue.checked = false;
 		$scope.tandem = {user1:"-",user2:"-",userid1:0,userid1:0};
 		$scope.modal.show();
@@ -136,15 +137,43 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 	$scope.isparkingtandemvalue = {checked:false};
 	
-	$scope.tandem = {user1:"-",user2:"-",userid1:0,userid1:0};
+	$scope.tandem = {user1:"-",user2:"-",userid1:0,userid2:0};
+	$scope.tandemusers = [];
 	$scope.usertoadd = {value:0};
 	
 	$scope.create = function(item){
+		$ionicLoading.show({
+	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+	            '<p>Loading ...</p>',
+	          animation: 'fade-in',
+	          noBackdrop: false,
+	          maxWidth: 500,
+	          showDelay: 0
+		});
+		
 		if($scope.parking.parkingid == ""){
 			$scope.req.parkingid = true;
 
 		}else{
-			console.log($scope.tandem);
+			//loop two times for saving the tandem user
+			if($scope.parking.isparkingtandem == "Yes"){
+				$scope.tandemusers.push({userid:$scope.tandem.userid1});
+				$scope.tandemusers.push({userid:$scope.tandem.userid2});
+			}else{
+				$scope.tandemusers.push({userid:$scope.tandem.userid1});
+			}
+			for(i=0;i<$scope.tandemusers.length;i++){
+				  $scope.parking.userid = $scope.tandemusers[i].userid;
+				  console.log($scope.parking);
+				  $http.post('/saveparking', JSON.stringify($scope.parking)).then(function (data) {
+					  	  console.log(data);
+					  	  $ionicLoading.hide();
+				  }, function (data) {
+						  console.log(data);
+				  }).finally(function() {
+						    // called no matter success or failure
+				  });		
+			}
 			$scope.modal.hide();
 		}
 	}

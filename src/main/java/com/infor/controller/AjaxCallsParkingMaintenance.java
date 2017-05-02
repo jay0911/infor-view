@@ -30,4 +30,10 @@ public class AjaxCallsParkingMaintenance {
 		MaintenanceDTO returnDTO  = rt.postForObject(ParkingMaintenanceEndpoints.DELETE_PARKING, deleteparking, MaintenanceDTO.class);
 		return returnDTO.getInforParkings();
 	}
+	
+	@PostMapping(value = "/saveparking")
+	public List<InforParking> saveparking(@RequestBody MaintenanceDTO saveparking){
+		MaintenanceDTO returnDTO  = rt.postForObject(ParkingMaintenanceEndpoints.SAVE_PARKING, saveparking, MaintenanceDTO.class);
+		return returnDTO.getInforParkings();
+	}
 }
