@@ -116,6 +116,14 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	$scope.clearSearch = function(){	  
 		  $scope.searchval = {};
 	};
+	
+	$scope.openMainModal = function(){
+		$scope.req.parkingid = "";
+		$scope.parking.parkingid = "";
+		$scope.isparkingtandemvalue.checked = false;
+		$scope.tandem = {user1:"-",user2:"-",userid1:0,userid1:0};
+		$scope.modal.show();
+	}
 	  
 	$scope.searchval = {};
 	
@@ -128,7 +136,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 	$scope.isparkingtandemvalue = {checked:false};
 	
-	$scope.tandem = {user1:"-",user2:"-"};
+	$scope.tandem = {user1:"-",user2:"-",userid1:0,userid1:0};
 	$scope.usertoadd = {value:0};
 	
 	$scope.create = function(item){
@@ -136,7 +144,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			$scope.req.parkingid = true;
 
 		}else{
-			
+			console.log($scope.tandem);
 			$scope.modal.hide();
 		}
 	}
@@ -153,8 +161,10 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		$scope.hidemodaluser();
 		if($scope.usertoadd.value == 1){
 			$scope.tandem.user1 = item.firstname;
+			$scope.tandem.userid1 = item.userid;
 		}else{
 			$scope.tandem.user2 = item.firstname;
+			$scope.tandem.userid2 = item.userid;
 		}
 	};
 	
@@ -234,7 +244,8 @@ angular.module('ionicApp', ['ionic','ui.router'])
 				    for (i=0;i<response.data.inforUsers.length;i++){
 					    $scope.users.push(
 					    		{
-					    		firstname:response.data.inforUsers[i].firstname
+					    		userid:response.data.inforUsers[i].userid
+					    		,firstname:response.data.inforUsers[i].firstname
 					    		,lastname:response.data.inforUsers[i].lastname
 					    		,contactnumber:response.data.inforUsers[i].contactnumber
 					    		,emailaddress:response.data.inforUsers[i].emailaddress
