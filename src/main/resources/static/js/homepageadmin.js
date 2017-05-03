@@ -140,6 +140,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	$scope.tandem = {user1:"-",user2:"-",userid1:0,userid2:0};
 	$scope.tandemusers = [];
 	$scope.usertoadd = {value:0};
+	$scope.parking.isparkingtandem = "No";
 	
 	$scope.create = function(item){
 		$ionicLoading.show({
@@ -166,6 +167,11 @@ angular.module('ionicApp', ['ionic','ui.router'])
 				  $scope.parking.userid = $scope.tandemusers[i].userid;
 				  console.log($scope.parking);
 				  $http.post('/saveparking', JSON.stringify($scope.parking)).then(function (data) {
+					     $scope.parkings.push(
+					    		{
+					    		isparkingtandem:$scope.parking.isparkingtandem
+					    		,parkingid:$scope.parking.parkingid
+					    		});
 					  	  console.log(data);
 					  	  $ionicLoading.hide();
 				  }, function (data) {
