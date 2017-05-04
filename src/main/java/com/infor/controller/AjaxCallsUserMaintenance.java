@@ -42,5 +42,10 @@ public class AjaxCallsUserMaintenance {
 	public MaintenanceDTO getusers(){
 		return rt.postForObject(UserMaintenanceEndpoints.GET_USERS,InstantationUtil.createDTOinstance(), MaintenanceDTO.class);
 	}
+	
+	@GetMapping(value = "/getallavailuserforparking")
+	public MaintenanceDTO getallavailuserforparking(){
+		return rt.postForObject(UserMaintenanceEndpoints.GET_INFORPARKINGUSERS,InstantationUtil.createDTOinstance(), MaintenanceDTO.class);
+	}
 
 }

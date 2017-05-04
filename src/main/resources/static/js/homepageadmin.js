@@ -273,7 +273,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 			});
 		    $http({
 				  method: 'GET',
-				  url: '/getusers'
+				  url: '/getallavailuserforparking'
 				}).then(function successCallback(response) {
 				    console.log(response);
 				    for (i=0;i<response.data.inforUsers.length;i++){
