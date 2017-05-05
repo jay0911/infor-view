@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.infor.dto.MaintenanceDTO;
 import com.infor.endpoints.ParkingMaintenanceEndpoints;
 import com.infor.models.InforParking;
+import com.infor.models.InforUser;
 import com.infor.utils.InstantationUtil;
 
 @RestController
@@ -35,5 +36,11 @@ public class AjaxCallsParkingMaintenance {
 	public List<InforParking> saveparking(@RequestBody MaintenanceDTO saveparking){
 		MaintenanceDTO returnDTO  = rt.postForObject(ParkingMaintenanceEndpoints.SAVE_PARKING, saveparking, MaintenanceDTO.class);
 		return returnDTO.getInforParkings();
+	}
+	
+	@PostMapping("/selectParkingUsers")
+	public List<InforUser> selectParkingUsers(@RequestBody MaintenanceDTO dto){
+		MaintenanceDTO returnDTO  = rt.postForObject(ParkingMaintenanceEndpoints.SELECT_PARKINGUSERS, dto, MaintenanceDTO.class);
+		return returnDTO.getInforUsers();
 	}
 }

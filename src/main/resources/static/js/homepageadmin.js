@@ -90,7 +90,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	};
 })
 
-.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionicPopup,$ionicModal,$http){
+.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionicPopup,$ionicModal,$http,$ionicListDelegate){
 	
 	$ionicLoading.show({
 	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
@@ -105,6 +105,12 @@ angular.module('ionicApp', ['ionic','ui.router'])
 	    scope: $scope
 	}).then(function(modal) {
 	    $scope.modal = modal;
+	});
+	
+	$ionicModal.fromTemplateUrl('templates/modaledit.html', {
+	    scope: $scope
+	}).then(function(modal) {
+	    $scope.modaledit = modal;
 	});
 	
 	$ionicModal.fromTemplateUrl('templates/modaluser.html', {
@@ -125,12 +131,26 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		$scope.tandem = {user1:"-",user2:"-",userid1:0,userid1:0};
 		$scope.modal.show();
 	}
+	
+	$scope.openEditModal = function(){
+		$scope.req.parkingid = "";
+		$scope.parkingedit.parkingid = "";
+		$scope.tandemusersedit = [];
+		$scope.isparkingtandemvalue.checked = false;
+		$scope.tandemedit = {user1:"-",user2:"-",userid1:0,userid1:0};
+		$scope.modaledit.show();
+	}
 	  
 	$scope.searchval = {};
 	
 	$scope.parkings = [];
 	$scope.req = [];
 	$scope.parking = {
+			isparkingtandem:""
+    		,parkingid:""
+    		,userid:0
+	};
+	$scope.parkingedit = {
 			isparkingtandem:""
     		,parkingid:""
     		,userid:0
@@ -167,11 +187,7 @@ angular.module('ionicApp', ['ionic','ui.router'])
 				  $scope.parking.userid = $scope.tandemusers[i].userid;
 				  console.log($scope.parking);
 				  $http.post('/saveparking', JSON.stringify($scope.parking)).then(function (data) {
-					     $scope.parkings.push(
-					    		{
-					    		isparkingtandem:$scope.parking.isparkingtandem
-					    		,parkingid:$scope.parking.parkingid
-					    		});
+
 					  	  console.log(data);
 					  	  $ionicLoading.hide();
 				  }, function (data) {
@@ -180,6 +196,11 @@ angular.module('ionicApp', ['ionic','ui.router'])
 						    // called no matter success or failure
 				  });		
 			}
+		    $scope.parkings.push(
+			    		{
+			    		isparkingtandem:$scope.parking.isparkingtandem
+			    		,parkingid:$scope.parking.parkingid
+			    		});
 			$scope.modal.hide();
 		}
 	}
@@ -236,6 +257,33 @@ angular.module('ionicApp', ['ionic','ui.router'])
 		init();
 		
 		$scope.users = [];
+		
+		$scope.editParking = function(item){
+			$scope.openEditModal();
+			$ionicListDelegate.closeOptionButtons(); 	
+			if(item.isparkingtandem == "Yes"){
+				$scope.isparkingtandemvalue.checked = true;
+			}else{
+				$scope.isparkingtandemvalue.checked = false;
+			}
+			$scope.parkingedit.parkingid = item.parkingid; 
+			
+			$http.post('/selectParkingUsers', JSON.stringify($scope.parkingedit)).then(function (data) {
+				console.log(data.data);
+				if($scope.isparkingtandemvalue.checked == true){
+					$scope.tandemedit.user1 = data.data[0].firstname
+					$scope.tandemedit.userid1 = data.data[0].userid;
+				}else{
+					$scope.tandemedit.user2 = data.data[1].firstname;
+					$scope.tandemedit.userid2 = data.data[1].userid;
+				}
+			}, function (data) {
+				console.log(data);
+			}).finally(function() {
+					    // called no matter success or failure
+			});
+
+		}
 		
 		$scope.deleteParking = function(item){
 			$scope.parkings.splice($scope.parkings.indexOf(item), 1);

@@ -24,8 +24,8 @@
             Delete
           </ion-option-button>
           <ion-option-button class="button-calm"
-                             ng-click="share(item)">
-            Share
+                             ng-click="editParking(item)">
+            Edit
           </ion-option-button>
         </ion-item>
       </ion-list>
@@ -73,6 +73,53 @@
 			</div>
 
             <button class="button button-full button-positive" ng-click="create(parking)">Create</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    
+    <script id="templates/modaledit.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">Edit Parking</h1>
+          <button class="button button-clear button-primary" ng-click="modaledit.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+
+			<label class="item item-icon-left">
+        		<i class="icon ion-card"></i>
+			    {{ parkingedit.parkingid }}	
+			</label>
+
+        	<ion-toggle class="item" ng-model="isparkingtandemvalue.checked"
+                    ng-change="isparkingtandemvalueChange()">
+          		Is Parking Tandem?
+        	</ion-toggle>
+
+	        <div class="item item-divider">
+			   		Assign User
+			</div>
+
+  			<div class="item item-icon-left item-button-right">
+    				<i class="icon ion-social-instagram-outline"></i>
+			     		{{ tandemedit.user1 }} 
+    				<button class="button button-positive" ng-click="adduser(1)">
+      					<i class="icon ion-ios-telephone"></i>
+    				</button>
+  			</div>
+
+			<div ng-hide="!isparkingtandemvalue.checked" class="list">
+  				<div class="item item-icon-left item-button-right">
+    				<i class="icon ion-social-instagram-outline"></i>
+			     		{{ tandemedit.user2 }} 
+    				<button class="button button-positive" ng-click="adduser(2)">
+      					<i class="icon ion-ios-telephone"></i>
+    				</button>
+  				</div>
+			</div>
+
+            <button class="button button-full button-positive" ng-click="edit(parkingedit)">Create</button>
           </div>
         </ion-content>
       </ion-modal-view>
