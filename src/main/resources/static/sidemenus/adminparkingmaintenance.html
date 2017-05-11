@@ -104,7 +104,7 @@
   			<div class="item item-icon-left item-button-right">
     				<i class="icon ion-social-instagram-outline"></i>
 			     		{{ tandemedit.user1 }} 
-    				<button class="button button-positive" ng-click="adduser(1)">
+    				<button class="button button-positive" ng-click="adduseredit(1)">
       					<i class="icon ion-ios-telephone"></i>
     				</button>
   			</div>
@@ -113,13 +113,13 @@
   				<div class="item item-icon-left item-button-right">
     				<i class="icon ion-social-instagram-outline"></i>
 			     		{{ tandemedit.user2 }} 
-    				<button class="button button-positive" ng-click="adduser(2)">
+    				<button class="button button-positive" ng-click="adduseredit(2)">
       					<i class="icon ion-ios-telephone"></i>
     				</button>
   				</div>
 			</div>
 
-            <button class="button button-full button-positive" ng-click="edit(parkingedit)">Create</button>
+            <button class="button button-full button-positive" ng-click="editme(parkingedit)">Edit</button>
           </div>
         </ion-content>
       </ion-modal-view>
@@ -143,6 +143,32 @@
 
   			<div class="item item-button-left"  ng-repeat="item in users | filter:searchval" >
     				<button class="button button-calm" ng-click="createuser(item)">
+      					<i class="icon ion-thumbsup"></i>
+    				</button>
+			     		<h2>{{ item.firstname }}</h2> <h4>{{ item.lastname }}</h4> <h4>{{ item.position }}</h4>
+  			</div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    
+    <script id="templates/modaledituser.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">Users List</h1>
+          <button class="button button-clear button-primary" ng-click="hidemodaluser()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+
+	        <div class="bar bar-header item-input-inset">
+                	<div class="item-input-wrapper">
+                        <i class="icon ion-android-search"></i>
+                        <input type="search" id="searchval" placeholder="Search User" data-ng-model="searchval.firstname" />
+                        <i ng-show="searchval.parkingid.length" data-ng-click="clearSearch()" class="icon ion-close"></i>
+                    </div>
+            </div>
+
+  			<div class="item item-button-left"  ng-repeat="item in users | filter:searchval" >
+    				<button class="button button-calm" ng-click="edituser(item)">
       					<i class="icon ion-thumbsup"></i>
     				</button>
 			     		<h2>{{ item.firstname }}</h2> <h4>{{ item.lastname }}</h4> <h4>{{ item.position }}</h4>
