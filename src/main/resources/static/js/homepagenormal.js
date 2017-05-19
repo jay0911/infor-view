@@ -27,6 +27,16 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
         }
       }
     })
+    .state('tabs.parkinparkout', {
+      cache: false,
+      url: "/parkinparkout",
+      views: {
+        'menuContent': {
+          templateUrl: "sidemenus/parkinparkout.html",
+          controller: 'parkinparkout'
+        }
+      }
+    })
     .state('tabs.userinfo', {
       url: "/userinfo",
       cache: false,
@@ -42,7 +52,30 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
    $urlRouterProvider.otherwise("/tab/home");
 
 })
+.controller('parkinparkout', function($scope,$http,$ionicLoading) {
+	var init = function () {
+		$ionicLoading.show({
+	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+	            '<p>Loading ...</p>',
+	          animation: 'fade-in',
+	          noBackdrop: false,
+	          maxWidth: 500,
+	          showDelay: 0
+		});
+		
+	    $http({
+			  method: 'GET',
+			  url: '/checkregisteredforparking'
+			}).then(function successCallback(response) {
+			    console.log(response);
 
+			    $ionicLoading.hide(); 
+			}, function errorCallback(response) {
+				 console.log(response);
+		});	
+	};
+	init();
+})
 .controller('backController', function($scope, $ionicHistory,$state) {
 	$scope.myGoBack = function() {
 		/*		if($ionicHistory.currentStateName() == 'tabs.register'){
