@@ -52,7 +52,7 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
    $urlRouterProvider.otherwise("/tab/home");
 
 })
-.controller('parkinparkout', function($scope,$http,$ionicLoading) {
+.controller('parkinparkout', function($scope,$http,$ionicLoading,$state,$ionicPopup,$ionicHistory) {
 	var init = function () {
 		$ionicLoading.show({
 	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
@@ -67,9 +67,20 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 			  method: 'GET',
 			  url: '/checkregisteredforparking'
 			}).then(function successCallback(response) {
-			    console.log(response);
-
+			    console.log(response);			    
 			    $ionicLoading.hide(); 
+			    if(response.data.ajaxResponseBody.code == "400"){
+				       var alertPopup = $ionicPopup.alert({
+				           title: 'No parking space assign',
+				           template: 'Please contact you admin to assign you a parking slot!'
+				       });
+				       $ionicHistory.nextViewOptions({
+				    	    disableBack: true
+				       });
+				       alertPopup.then(function(res) {
+				        	$state.go('tabs.home', {}, { location: false } );
+				       });
+			    }
 			}, function errorCallback(response) {
 				 console.log(response);
 		});	
