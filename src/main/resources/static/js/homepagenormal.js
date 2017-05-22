@@ -53,6 +53,11 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 
 })
 .controller('parkinparkout', function($scope,$http,$ionicLoading,$state,$ionicPopup,$ionicHistory) {
+	$scope.screen = {
+		singlehide:true,
+		tandemhide:true,
+		parkouthide:true
+	};
 	var init = function () {
 		$ionicLoading.show({
 	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
@@ -80,6 +85,14 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 				       alertPopup.then(function(res) {
 				        	$state.go('tabs.home', {}, { location: false } );
 				       });
+			    }else{
+			    	if(response.data.inforParking.isparkingtandem == "Yes"){
+			    		$scope.screen.singlehide = true;
+			    		$scope.screen.tandemhide = false;
+			    	}else{
+			    		$scope.screen.singlehide = false;
+			    		$scope.screen.tandemhide = true;
+			    	}
 			    }
 			}, function errorCallback(response) {
 				 console.log(response);
