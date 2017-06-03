@@ -156,6 +156,8 @@ start.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionic
 		}
 	};
 	
+	BOBOOBOBBOOBo
+	
 	$scope.edituser = function(item){
 		$scope.hidemodaledituser();
 		if($scope.usertoadd.value == 1){
