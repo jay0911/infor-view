@@ -93,6 +93,11 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 			    		$scope.screen.singlehide = false;
 			    		$scope.screen.tandemhide = true;
 			    	}
+			    	if(response.data.ajaxResponseBody.code == "200"){
+			    		$scope.screen.parkouthide = false;
+			    	}else{
+			    		$scope.screen.parkouthide = true;
+			    	}
 			    }
 			}, function errorCallback(response) {
 				 console.log(response);
