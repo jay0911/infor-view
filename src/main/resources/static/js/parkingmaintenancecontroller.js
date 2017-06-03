@@ -302,11 +302,13 @@ start.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionic
 		};
 		
 		$scope.hidemodaluser = function(){
+			$scope.clearSearch();
 			$scope.modaluser.hide();
 			$scope.modal.show();
 		};
 		
 		$scope.hidemodaledituser = function(){
+			$scope.clearSearch();
 			$scope.modaledituser.hide();
 			$scope.modaledit.show();
 		};
