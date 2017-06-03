@@ -99,6 +99,7 @@ start.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionic
 			$scope.req.parkingid = true;
 
 		}else{
+			$scope.tandemusers = [];
 			//loop two times for saving the tandem user
 			if($scope.parking.isparkingtandem == "Yes"){
 				$scope.tandemusers.push({userid:$scope.tandem.userid1});
@@ -243,6 +244,7 @@ start.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionic
 				$scope.req.parkingid = true;
 
 			}else{
+				$scope.arrayParkingEdit = [];
 				//loop two times for saving the tandem user
 				console.log($scope.isparkingtandemvalue.checked);
 				if($scope.isparkingtandemvalue.checked == true){
@@ -311,6 +313,7 @@ start.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionic
 		
 		
 		$scope.hidemainmodal = function(){
+			$scope.users = [];
 			$scope.modaluser.show();
 			$scope.modal.hide();
 			$ionicLoading.show({
@@ -347,6 +350,7 @@ start.controller('adminparkingmaintenance', function($scope,$ionicLoading,$ionic
 		};
 		
 		$scope.hideeditmodal = function(){
+		    $scope.users = [];
 			$scope.modaledituser.show();
 			$scope.modaledit.hide();
 			$ionicLoading.show({
