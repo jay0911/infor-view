@@ -58,6 +58,11 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 		tandemhide:true,
 		parkouthide:true
 	};
+	
+	$scope.hello = function(){
+		alert('hello');
+	}
+	
 	var init = function () {
 		$ionicLoading.show({
 	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
@@ -95,6 +100,8 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 			    	}
 			    	if(response.data.ajaxResponseBody.code == "200"){
 			    		$scope.screen.parkouthide = false;
+			    		$scope.screen.singlehide = true;
+			    		$scope.screen.tandemhide = true;
 			    	}else{
 			    		$scope.screen.parkouthide = true;
 			    	}

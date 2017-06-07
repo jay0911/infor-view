@@ -4,13 +4,25 @@
 	</ion-nav-buttons>
 	<ion-content class="padding">
    		<div class="parkin" ng-hide="screen.singlehide">
-   			singlehide
+   			<div class="card">
+			   <div class="item item-text-wrap">
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="hello();" ui-sref-opts="{location:false}">Park in</a>
+			  </div>
+			</div>
    		</div>
    		<div class="parkin" ng-hide="screen.tandemhide">
-   			tandemhide
+   			<div class="card">
+			   <div class="item item-text-wrap">
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="hello();" ui-sref-opts="{location:false}">Park in</a>
+			  </div>
+			</div>
    		</div>
    		<div class="parkout" ng-hide="screen.parkouthide">
-   			parkout
+   			<div class="card">
+			   <div class="item item-text-wrap">
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="hello();" ui-sref-opts="{location:false}">Park out</a>
+			  </div>
+			</div>
    		</div>
 	</ion-content>
 </ion-view>
