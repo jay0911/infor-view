@@ -12,22 +12,26 @@
    		</div>
    		<div class="parkin" ng-hide="screen.tandemhide">
    			<div class="card">
-			   <div class="item item-text-wrap">
-			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="hello();" ui-sref-opts="{location:false}">Park in</a>
+			  <div class="item item-text-wrap">
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="timein();" ui-sref-opts="{location:false}">Park in</a>
 			  </div>
+			  <div class="item item-text-wrap">
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="modaltandem.show()" ui-sref-opts="{location:false}">Tandem Info</a>
+			  </div>
+			  <div class="item item-text-wrap">
+				<ion-radio name="group2" ng-repeat="item in cars"
+		                   ng-value="item.carid"
+		                   ng-model="car.value"
+		                   ng-init="$index==0?(car.value=item.carid):''">
+		          {{ item.carplatenumber }} {{ item.carbrand }}
+		        </ion-radio>
+		      </div>
 			</div>
    		</div>
    		<div class="parkout" ng-hide="screen.parkouthide">
    			<div class="card">
 			   <div class="item item-text-wrap">
 			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="hello();" ui-sref-opts="{location:false}">Park out</a>
-			  </div>
-			</div>
-   		</div>
-   		<div class="parkout" ng-hide="screen.tandeminfo">
-   			<div class="card">
-			   <div class="item item-text-wrap">
-			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="modaltandem.show()" ui-sref-opts="{location:false}">Tandem Info</a>
 			  </div>
 			</div>
    		</div>

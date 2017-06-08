@@ -70,8 +70,60 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 		inforaddress:""
 	};
 	
-	$scope.hello = function(){
-		alert('hello');
+	$scope.cars=[];
+	$scope.car = {value:""};
+	
+	$scope.transaction = {
+			userid:"",
+			parkingid:"",
+			carid:""
+	};
+	
+	$scope.timein = function(){
+		  
+		  $ionicLoading.show({
+		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+		            '<p>Registering ...</p>',
+		          animation: 'fade-in',
+		          noBackdrop: false,
+		          maxWidth: 500,
+		          showDelay: 0
+		  });
+		  
+		  $scope.transaction.carid = $scope.car.value;
+		  	  
+		  $http.post('/timein', JSON.stringify($scope.transaction)).then(function (data) {
+			  	  console.log(data.data.code);
+			  	  if(data.data.code == "200"){		  		  	   
+			       var alertPopup = $ionicPopup.alert({
+			           title: 'Time in',
+			           template: 'Success!'
+			        });
+
+			       $ionicHistory.nextViewOptions({
+			    	    disableBack: true
+			       });
+			       alertPopup.then(function(res) {
+			        	$state.go('tabs.home', {}, { location: false } );
+			       });
+			  	  };
+			  	  if(data.data.code == "400"){
+				       var alertPopup = $ionicPopup.alert({
+				           title: 'Error',
+				           template: 'error in timing in!'
+				        });
+
+				        alertPopup.then(function(res) {
+				        	//to do
+				        });
+			  	  };
+			  	  
+		  }, function (data) {
+				  console.log(data);
+		  }).finally(function() {
+				    // called no matter success or failure
+			  $ionicLoading.hide();
+		  });		  
 	}
 	
 	var init = function () {
@@ -90,6 +142,9 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 			}).then(function successCallback(response) {
 			    console.log(response);			    
 			    $ionicLoading.hide(); 
+			    for (i=0;i<response.data.inforCars.length;i++){
+			    	 $scope.cars.push(response.data.inforCars[i]);
+			    }  
 			    if(response.data.ajaxResponseBody.code == "400"){
 				       var alertPopup = $ionicPopup.alert({
 				           title: 'No parking space assign',
@@ -102,10 +157,13 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 				        	$state.go('tabs.home', {}, { location: false } );
 				       });
 			    }else{
+			    	
+					$scope.transaction.userid = response.data.inforParking.userid;
+					$scope.transaction.parkingid = response.data.inforParking.parkingid;
+			    	
 			    	if(response.data.inforParking.isparkingtandem == "Yes"){
 			    		$scope.screen.singlehide = true;
 			    		$scope.screen.tandemhide = false;
-			    		$scope.screen.tandeminfo = false;
 			    		
 			    		$scope.tandemdetails.userid = response.data.tandemParkingDetails.userid;
 			    		$scope.tandemdetails.firstname = response.data.tandemParkingDetails.firstname;
