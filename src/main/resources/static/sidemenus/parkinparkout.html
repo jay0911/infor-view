@@ -24,5 +24,53 @@
 			  </div>
 			</div>
    		</div>
+   		<div class="parkout" ng-hide="screen.tandeminfo">
+   			<div class="card">
+			   <div class="item item-text-wrap">
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="modaltandem.show()" ui-sref-opts="{location:false}">Tandem Info</a>
+			  </div>
+			</div>
+   		</div>
 	</ion-content>
+	
+	<script id="templates/modal-tandeminfo.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">Tandem Information</h1>
+          <button class="button button-clear button-primary" ng-click="modaltandem.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+			<label class="item item-icon-left">
+        		<i class="icon ion-card"></i>
+			    {{ tandemdetails.userid }}	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-pricetags"></i>
+			    {{ tandemdetails.firstname }}	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-chatbubble-working"></i>
+			    {{ tandemdetails.lastname }}
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-card"></i>
+			    {{ tandemdetails.position }}	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-pricetags"></i>
+			    {{ tandemdetails.contactnumber }}	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-chatbubble-working"></i>
+			    {{ tandemdetails.emailaddress }}
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-chatbubble-working"></i>
+			    {{ tandemdetails.inforaddress }}
+			</label>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
 </ion-view>

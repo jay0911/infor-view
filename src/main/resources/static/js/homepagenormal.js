@@ -52,11 +52,22 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
    $urlRouterProvider.otherwise("/tab/home");
 
 })
-.controller('parkinparkout', function($scope,$http,$ionicLoading,$state,$ionicPopup,$ionicHistory) {
+.controller('parkinparkout', function($scope,$http,$ionicLoading,$state,$ionicPopup,$ionicHistory,$ionicModal) {
 	$scope.screen = {
 		singlehide:true,
 		tandemhide:true,
-		parkouthide:true
+		parkouthide:true,
+		tandeminfo:true
+	};
+	
+	$scope.tandemdetails = {
+		userid:"",
+		firstname:"",
+		lastname:"",
+		position:"",
+		contactnumber:"",
+		emailaddress:"",
+		inforaddress:""
 	};
 	
 	$scope.hello = function(){
@@ -94,6 +105,15 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 			    	if(response.data.inforParking.isparkingtandem == "Yes"){
 			    		$scope.screen.singlehide = true;
 			    		$scope.screen.tandemhide = false;
+			    		$scope.screen.tandeminfo = false;
+			    		
+			    		$scope.tandemdetails.userid = response.data.tandemParkingDetails.userid;
+			    		$scope.tandemdetails.firstname = response.data.tandemParkingDetails.firstname;
+			    		$scope.tandemdetails.lastname = response.data.tandemParkingDetails.lastname;
+			    		$scope.tandemdetails.position = response.data.tandemParkingDetails.position;
+			    		$scope.tandemdetails.contactnumber = response.data.tandemParkingDetails.contactnumber;
+			    		$scope.tandemdetails.emailaddress = response.data.tandemParkingDetails.emailaddress;
+			    		$scope.tandemdetails.inforaddress = response.data.tandemParkingDetails.inforaddress;
 			    	}else{
 			    		$scope.screen.singlehide = false;
 			    		$scope.screen.tandemhide = true;
@@ -111,6 +131,12 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 		});	
 	};
 	init();
+	
+	$ionicModal.fromTemplateUrl('templates/modal-tandeminfo.html', {
+	    scope: $scope
+	}).then(function(modal) {
+	    $scope.modaltandem = modal;
+	});
 })
 .controller('backController', function($scope, $ionicHistory,$state) {
 	$scope.myGoBack = function() {
