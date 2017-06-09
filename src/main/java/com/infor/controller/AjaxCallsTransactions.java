@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.infor.dto.TransactionDTO;
 import com.infor.endpoints.TransactionsEndpoints;
 import com.infor.models.AjaxResponseBody;
+import com.infor.models.Email;
 import com.infor.models.InforTransaction;
 import com.infor.security.UserConfigurable;
 
@@ -33,5 +34,15 @@ public class AjaxCallsTransactions {
 	@PostMapping("/timein")
 	public AjaxResponseBody timein(@RequestBody InforTransaction it){
 		return rt.postForObject(TransactionsEndpoints.BEGIN_TRANSACTION,it, AjaxResponseBody.class);
+	}
+	
+	@PostMapping("/timeout")
+	public AjaxResponseBody timeout(@RequestBody InforTransaction it){
+		return rt.postForObject(TransactionsEndpoints.END_TRANSACTION,it, AjaxResponseBody.class);
+	}
+	
+	@PostMapping("/sendemail")
+	public AjaxResponseBody timeout(@RequestBody Email email){
+		return rt.postForObject(TransactionsEndpoints.SENDMAIL,email, AjaxResponseBody.class);
 	}
 }

@@ -60,6 +60,20 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 		tandeminfo:true
 	};
 	
+	$scope.email = {
+		senderAddress:"",
+		toAddress:"",
+		subject:"",
+		message:"",
+		host:"",
+		socketPort:"",
+		socketClass:"",
+		auth:"",
+		port:"",
+		userName:"",
+		password:""
+	};
+	
 	$scope.tandemdetails = {
 		userid:"",
 		firstname:"",
@@ -79,11 +93,55 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 			carid:""
 	};
 	
+	$scope.timeout = function(){ 
+		  $ionicLoading.show({
+		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+		            '<p>Processing ...</p>',
+		          animation: 'fade-in',
+		          noBackdrop: false,
+		          maxWidth: 500,
+		          showDelay: 0
+		  });
+		  	  
+		  $http.post('/timeout', JSON.stringify($scope.transaction)).then(function (data) {
+			  	  console.log(data.data.code);
+			  	  if(data.data.code == "200"){		  		  	   
+			       var alertPopup = $ionicPopup.alert({
+			           title: 'Time out',
+			           template: 'Success!'
+			        });
+
+			       $ionicHistory.nextViewOptions({
+			    	    disableBack: true
+			       });
+			       alertPopup.then(function(res) {
+			        	$state.go('tabs.home', {}, { location: false } );
+			       });
+			  	  };
+			  	  if(data.data.code == "400"){
+				       var alertPopup = $ionicPopup.alert({
+				           title: 'Error',
+				           template: 'error in timing in!'
+				        });
+
+				        alertPopup.then(function(res) {
+				        	//to do
+				        });
+			  	  };
+			  	  
+		  }, function (data) {
+				  console.log(data);
+		  }).finally(function() {
+				    // called no matter success or failure
+			  $ionicLoading.hide();
+		  });		  
+	}
+	
 	$scope.timein = function(){
 		  
 		  $ionicLoading.show({
 		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
-		            '<p>Registering ...</p>',
+		            '<p>Processing ...</p>',
 		          animation: 'fade-in',
 		          noBackdrop: false,
 		          maxWidth: 500,
@@ -126,6 +184,53 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 		  });		  
 	}
 	
+	$scope.sendemail = function(){
+		  
+		  $ionicLoading.show({
+		    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
+		            '<p>Processing ...</p>',
+		          animation: 'fade-in',
+		          noBackdrop: false,
+		          maxWidth: 500,
+		          showDelay: 0
+		  });		  
+		  	  
+		  $http.post('/sendemail', JSON.stringify($scope.email)).then(function (data) {
+			  	  console.log(data.data.code);
+			  	  if(data.data.code == "200"){	
+			  	   $scope.modalemailtandem.hide();
+			       var alertPopup = $ionicPopup.alert({
+			           title: 'Sending Email',
+			           template: 'Success!'
+			        });
+
+			       $ionicHistory.nextViewOptions({
+			    	    disableBack: true
+			       });
+			       alertPopup.then(function(res) {
+			        	$state.go('tabs.home', {}, { location: false } );
+			       });
+			  	  };
+			  	  if(data.data.code == "400"){
+				       var alertPopup = $ionicPopup.alert({
+				           title: 'Error',
+				           template: 'error in sending email!'
+				        });
+
+				        alertPopup.then(function(res) {
+				        	//to do
+				        });
+			  	  };
+			  	  
+		  }, function (data) {
+				  console.log(data);
+		  }).finally(function() {
+				    // called no matter success or failure
+			  $ionicLoading.hide();
+		  });		  
+	
+	}
+	
 	var init = function () {
 		$ionicLoading.show({
 	    	 template: ' <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>'+
@@ -164,6 +269,7 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 			    	if(response.data.inforParking.isparkingtandem == "Yes"){
 			    		$scope.screen.singlehide = true;
 			    		$scope.screen.tandemhide = false;
+			    		$scope.screen.tandeminfo = false;
 			    		
 			    		$scope.tandemdetails.userid = response.data.tandemParkingDetails.userid;
 			    		$scope.tandemdetails.firstname = response.data.tandemParkingDetails.firstname;
@@ -175,6 +281,7 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 			    	}else{
 			    		$scope.screen.singlehide = false;
 			    		$scope.screen.tandemhide = true;
+			    		$scope.screen.tandeminfo = true;
 			    	}
 			    	if(response.data.ajaxResponseBody.code == "200"){
 			    		$scope.screen.parkouthide = false;
@@ -194,6 +301,12 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 	    scope: $scope
 	}).then(function(modal) {
 	    $scope.modaltandem = modal;
+	});
+	
+	$ionicModal.fromTemplateUrl('templates/modal-emailtandem.html', {
+	    scope: $scope
+	}).then(function(modal) {
+	    $scope.modalemailtandem = modal;
 	});
 })
 .controller('backController', function($scope, $ionicHistory,$state) {

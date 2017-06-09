@@ -3,10 +3,20 @@
 		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
 	<ion-content class="padding">
+		<div class="tandeminfo" ng-hide="screen.tandeminfo">
+   			<div class="card">
+   			  <div class="item item-text-wrap">
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="modaltandem.show()" ui-sref-opts="{location:false}">Tandem Info</a>
+			  </div>
+			  <div class="item item-text-wrap">
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="modalemailtandem.show()" ui-sref-opts="{location:false}">Email Tandem User</a>
+			  </div>
+   			</div>
+   		</div>
    		<div class="parkin" ng-hide="screen.singlehide">
    			<div class="card">
 			   <div class="item item-text-wrap">
-			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="hello();" ui-sref-opts="{location:false}">Park in</a>
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="timein();" ui-sref-opts="{location:false}">Park in</a>
 			  </div>
 			</div>
    		</div>
@@ -14,9 +24,6 @@
    			<div class="card">
 			  <div class="item item-text-wrap">
 			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="timein();" ui-sref-opts="{location:false}">Park in</a>
-			  </div>
-			  <div class="item item-text-wrap">
-			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="modaltandem.show()" ui-sref-opts="{location:false}">Tandem Info</a>
 			  </div>
 			  <div class="item item-text-wrap">
 				<ion-radio name="group2" ng-repeat="item in cars"
@@ -31,10 +38,11 @@
    		<div class="parkout" ng-hide="screen.parkouthide">
    			<div class="card">
 			   <div class="item item-text-wrap">
-			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="hello();" ui-sref-opts="{location:false}">Park out</a>
+			    <a class="button icon-right button-full ion-chevron-right button-balanced" ng-click="timeout();" ui-sref-opts="{location:false}">Park out</a>
 			  </div>
 			</div>
    		</div>
+
 	</ion-content>
 	
 	<script id="templates/modal-tandeminfo.html" type="text/ng-template">
@@ -73,6 +81,36 @@
         		<i class="icon ion-chatbubble-working"></i>
 			    {{ tandemdetails.inforaddress }}
 			</label>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    
+    <script id="templates/modal-emailtandem.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">Email Tandem User</h1>
+          <button class="button button-clear button-primary" ng-click="modalemailtandem.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+        	<label class="item item-icon-left">
+        		<i class="icon ion-android-person"></i>
+			    <input type="text" name="senderAddress" placeholder="sender address" ng-model="email.senderAddress" />		   	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-android-person"></i>
+			    <input type="text" name="toAddress" placeholder="to address" ng-model="email.toAddress" />		   		
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-android-call"></i>
+			    <input type="text" name="subject" placeholder="subject" ng-model="email.subject" />		   	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-email"></i>
+			    <input type="text" name="message" placeholder="message" ng-model="email.message" />		   
+			</label>
+			<button type="submit" class="button button-block button-balanced" ng-click="sendemail()">Send Email</button>
           </div>
         </ion-content>
       </ion-modal-view>
