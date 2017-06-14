@@ -27,6 +27,16 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
         }
       }
     })
+    .state('tabs.parkinparkout', {
+      cache: false,
+      url: "/parkinparkout",
+      views: {
+        'menuContent': {
+          templateUrl: "sidemenus/parkinparkout.html",
+          controller: 'parkinparkout'
+        }
+      }
+    })
     .state('tabs.carown', {
       url: "/carown",
       cache: false,
