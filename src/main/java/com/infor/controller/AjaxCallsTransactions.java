@@ -1,13 +1,11 @@
 package com.infor.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.infor.dto.TransactionDTO;
 import com.infor.endpoints.TransactionsEndpoints;
@@ -18,9 +16,7 @@ import com.infor.security.UserConfigurable;
 
 
 @RestController
-public class AjaxCallsTransactions {
-	@Autowired
-	private RestTemplate rt;
+public class AjaxCallsTransactions extends AjaxCallsCommon{
 	
 	@GetMapping("/checkregisteredforparking")
 	public TransactionDTO checkregisteredforparking(){

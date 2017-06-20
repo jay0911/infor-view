@@ -1,12 +1,10 @@
 package com.infor.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.infor.dto.MaintenanceDTO;
 import com.infor.endpoints.UserMaintenanceEndpoints;
@@ -15,10 +13,7 @@ import com.infor.security.SecurityHelper;
 import com.infor.utils.InstantationUtil;
 
 @RestController
-public class AjaxCallsUserMaintenance {
-	
-	@Autowired
-	private RestTemplate rt;
+public class AjaxCallsUserMaintenance extends AjaxCallsCommon{
 	
 	@PostMapping(value = "/registerhere")
 	public AjaxResponseBody registerHere(@RequestBody MaintenanceDTO registerform){

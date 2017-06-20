@@ -2,13 +2,11 @@ package com.infor.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.infor.dto.MaintenanceDTO;
 import com.infor.endpoints.CarsMaintenanceEndpoints;
@@ -17,9 +15,7 @@ import com.infor.models.InforCar;
 import com.infor.security.SecurityHelper;
 import com.infor.utils.InstantationUtil;
 @RestController
-public class AjaxCallsCarMaintenance {
-	@Autowired
-	private RestTemplate rt;
+public class AjaxCallsCarMaintenance extends AjaxCallsCommon{
 	
 	@PostMapping(value = "/addcar")
 	public AjaxResponseBody addcar(@RequestBody MaintenanceDTO savecar,Authentication authentication){
