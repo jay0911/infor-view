@@ -1,0 +1,70 @@
+      <ion-view view-title="Available Slots">
+        <ion-nav-buttons side="left">
+		    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+		</ion-nav-buttons>
+        <ion-content class="padding">
+			<ion-radio name="group2" ng-repeat="item in typeofslots"
+	                   ng-value="item.value"
+	                   ng-model="selectedslot.value"
+	                   ng-click="showList()">
+	          {{ item.text }}
+	        </ion-radio>
+        </ion-content>
+        
+      <script id="templates/modal-list.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">Slot List</h1>
+          <button class="button button-clear button-primary" ng-click="modallist.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+            <div class="item item-divider">
+			   <div class="balanced">Red for taken slot</div>
+			   <div class="assertive">Green for available slot</div>
+			</div>
+          <a class="item" ng-click="showuser(item.inforUser)" ng-repeat="item in slotlist" ng-class="{assertive: item.inforParking.userid == '0',balanced: item.inforParking.userid != '0'}" ">
+            {{ item.inforParking.parkingid }}
+          </a>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    
+    <script id="templates/modal-userinfo.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">User Information</h1>
+          <button class="button button-clear button-primary" ng-click="modaluserinfo.hide()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+			<label class="item item-icon-left">
+        		<i class="icon ion-pricetags"></i>
+			    {{ userinfo.firstname }}	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-chatbubble-working"></i>
+			    {{ userinfo.lastname }}
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-card"></i>
+			    {{ userinfo.position }}	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-pricetags"></i>
+			    {{ userinfo.contactnumber }}	
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-chatbubble-working"></i>
+			    {{ userinfo.emailaddress }}
+			</label>
+			<label class="item item-icon-left">
+        		<i class="icon ion-chatbubble-working"></i>
+			    {{ userinfo.inforaddress }}
+			</label>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+      </ion-view>

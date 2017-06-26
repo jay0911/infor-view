@@ -8,12 +8,12 @@ import com.infor.endpoints.SlotsEndpoints;
 @RestController
 public class AjaxCallsInforSlots extends AjaxCallsCommon{
 
-	@GetMapping("/getUnassignedSlots")
+	@GetMapping("/public/getUnassignedSlots")
 	public SlotsDTO getUnassignedSlots(){
 		return rt.getForObject(SlotsEndpoints.GET_UNASSIGNEDSLOTS, SlotsDTO.class);
 	}
 	
-	@GetMapping("/getAssignedSlots")
+	@GetMapping("/public/getAssignedSlots")
 	public SlotsDTO getAssignedSlots(){
 		return rt.getForObject(SlotsEndpoints.GET_ASSIGNEDSLOTS, SlotsDTO.class);
 	}
@@ -21,7 +21,7 @@ public class AjaxCallsInforSlots extends AjaxCallsCommon{
 	/*
 	 * get all slots via result of @getUnassignedSlots and @getAssignedSlots
 	 */
-	@GetMapping("/getAllSlots")
+	@GetMapping("/public/getAllSlots")
 	public SlotsDTO getAllSlots(){
 		return rt.getForObject(SlotsEndpoints.GET_ALLSLOTS, SlotsDTO.class);
 	}
