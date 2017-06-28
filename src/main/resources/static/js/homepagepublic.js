@@ -58,7 +58,9 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 	$scope.typeofslots = [
 	                      {text:"Unassigned slots",value:"0"},
 	                      {text:"Assigned slots",value:"1"},
-	                      {text:"All slots",value:"2"}
+	                      {text:"All slots",value:"2"},
+	                      {text:"Available slots",value:"3"},
+	                      {text:"Unavailable slots",value:"4"}
 	                      ];
 	
 	$scope.selectedslot = {value:""};
@@ -98,6 +100,27 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
 		}else if($scope.selectedslot.value == "2"){
 		    $http.get("/public/getAllSlots").then(function(response) {
 		        console.log("getAllSlots");
+		        console.log(response.data.inforSlots);
+			    for (i=0;i<response.data.inforSlots.length;i++){
+			    	 $scope.slotlist.push(response.data.inforSlots[i]);
+			    } 
+			    $ionicLoading.hide();
+		        $scope.modallist.show();
+		    });
+		}else if($scope.selectedslot.value == "3"){
+		    $http.get("/public/getAvailSlot").then(function(response) {
+		        console.log("getAvailSlot");
+		        console.log(response.data.inforSlots);
+			    for (i=0;i<response.data.inforSlots.length;i++){
+			    	 $scope.slotlist.push(response.data.inforSlots[i]);
+			    } 
+			    $ionicLoading.hide();
+		        $scope.modallist.show();
+		    });
+		}
+		else if($scope.selectedslot.value == "4"){
+		    $http.get("/public/getUnAvailSlot").then(function(response) {
+		        console.log("getUnAvailSlot");
 		        console.log(response.data.inforSlots);
 			    for (i=0;i<response.data.inforSlots.length;i++){
 			    	 $scope.slotlist.push(response.data.inforSlots[i]);

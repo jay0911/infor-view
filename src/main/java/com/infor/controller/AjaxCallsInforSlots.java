@@ -25,4 +25,14 @@ public class AjaxCallsInforSlots extends AjaxCallsCommon{
 	public SlotsDTO getAllSlots(){
 		return rt.getForObject(SlotsEndpoints.GET_ALLSLOTS, SlotsDTO.class);
 	}
+	
+	@GetMapping("/public/getAvailSlot")
+	public SlotsDTO getAvailSlot(){
+		return rt.getForObject(SlotsEndpoints.GET_AVAILSLOTS, SlotsDTO.class);
+	}
+	
+	@GetMapping("/public/getUnAvailSlot")
+	public SlotsDTO getUnAvailSlot(){
+		return rt.getForObject(SlotsEndpoints.GET_UNAVAILSLOTS, SlotsDTO.class);
+	}
 }
