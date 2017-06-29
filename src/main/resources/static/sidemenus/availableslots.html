@@ -20,10 +20,10 @@
         <ion-content class="padding">
           <div class="list">
             <div class="item item-divider">
-			   <div class="balanced">Red for taken slot</div>
-			   <div class="assertive">Green for available slot</div>
+			   <div class="balanced">Green for taken slot</div>
+			   <div class="assertive">Red for available slot</div>
 			</div>
-          <a class="item" ng-click="showuser(item.inforUser)" ng-repeat="item in slotlist" ng-class="{assertive: item.inforParking.userid == '0',balanced: item.inforParking.userid != '0'}" ">
+          <a class="item" ng-click="showuser(item.inforUser)" ng-repeat="item in slotlist" ng-class="{assertive: item.inforParking.userid == '0' && item.inforUser != null,balanced: item.inforParking.userid != '0' && item.inforUser != null}" ">
             {{ item.inforParking.parkingid }}
           </a>
           </div>
