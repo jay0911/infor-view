@@ -57,6 +57,15 @@ var start = angular.module('ionicApp', ['ionic','ui.router'])
         }
       }
     })
+        .state('tabs.availableslots', {
+      url: "/availableslots",
+      views: {
+        'menuContent': {
+          templateUrl: "sidemenus/availableslots.html",
+          controller: 'availableslots'
+        }
+      }
+    })
     .state('tabs.adminparkingmaintenance', {
       url: "/adminparkingmaintenance",
       cache: false,
